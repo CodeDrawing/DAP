@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysPowerMapper">
+
+
+
+    <select id="selectByUsername" parameterType="string" resultType="SysPower">
+        SELECT *
+        FROM sys_power sp
+                 LEFT JOIN sys_role_power srp ON sp.power_id = srp.power_id
+                 LEFT JOIN sys_role sr ON sr.role_id = srp.role_id
+                 LEFT JOIN sys_user_role sur ON sur.role_id = sr.role_id
+                 LEFT JOIN sys_user su ON su.user_id = sur.user_id
+        WHERE su.username = #{username}
+          and sp.enable = 1
+        ORDER BY sp.sort ASC
+    </select>
+
+</mapper>

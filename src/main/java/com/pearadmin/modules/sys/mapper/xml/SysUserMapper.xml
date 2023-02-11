@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysUserMapper">
+
+    <!--根据 Username 加载 SysUser -->
+    <select id="selectByUsername" parameterType="string" resultType="SysUser">
+        select *
+        from sys_user
+        where username = #{username}
+    </select>
+
+    <!-- 根据 SysUser 条件查询用户列表 -->
+    <select id="selectUser" resultType="SysUser">
+        select * from sys_user
+        <where>
+            <if test="username!=null and username!=''">
+                and username like "%"#{username}"%"
+            </if>
+            <if test="realName!=null and realName!=''">
+                and real_name like "%"#{realName}"%"
+            </if>
+            <if test="deptId!=null and deptId!=''">
+                <choose>
+                    <when test="deptId=='-1'">
+                        and dept_id is null
+                    </when>
+                    <otherwise>
+                        and dept_id = #{deptId}
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
+
+
+    <!-- 根据部门字段清空部门字段 -->
+    <update id="resetDeptByDeptId" parameterType="string">
+        update sys_user
+        set dept_id = ""
+        where dept_id = #{deptId}
+    </update>
+
+    <!-- 根据部门字段清空部门字段 -->
+    <update id="resetDeptByDeptIds" parameterType="string">
+        update sys_user
+        set dept_id = ""
+        where dept_id in
+        <foreach collection="deptIds" item="deptId" open="(" separator="," close=")">
+            #{deptId}
+        </foreach>
+    </update>
+</mapper>

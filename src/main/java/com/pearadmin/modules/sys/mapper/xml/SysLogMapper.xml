@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysLogMapper">
+
+    <select id="selectList" resultType="SysLog">
+        select
+        id as id,
+        title as title,
+        method as method,
+        business_type as businessType,
+        request_method as requestMethod,
+        operate_name as operateName,
+        operate_url as operateUrl,
+        operate_address as operateAddress,
+        request_param as requestParam,
+        response_body as responseBody,
+        success as success,
+        error_msg as errorMsg,
+        create_time as createTime,
+        description as description,
+        request_body as requestBody,
+        logging_type as loggingType,
+        browser as browser,
+        system_os as systemOs
+        from sys_log
+        where logging_type = #{loggingType}
+        <if test="startTime!=null">
+            and create_time &gt;= #{startTime}
+        </if>
+        <if test="endTime!=null">
+            and create_time &lt;= #{endTime}
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="selectTopLoginLog" resultType="SysLog">
+        select id              as id,
+               title           as title,
+               method          as method,
+               business_type   as businessType,
+               request_method  as requestMethod,
+               operate_name    as operateName,
+               operate_url     as operateUrl,
+               operate_address as operateAddress,
+               request_param   as requestParam,
+               response_body   as responseBody,
+               success         as success,
+               error_msg       as errorMsg,
+               create_time     as createTime,
+               description     as description,
+               request_body    as requestBody,
+               logging_type    as loggingType,
+               browser         as browser,
+               system_os       as systemOs
+        from sys_log
+        where logging_type = "LOGIN"
+          and operate_name = #{operateName}
+        order by create_time desc
+        limit 1,11
+    </select>
+
+</mapper>

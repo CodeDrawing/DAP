@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysDeptMapper">
+
+    <resultMap id="SysDeptMap" type="SysDept">
+        <id column="dept_id" property="deptId"></id>
+        <result column="dept_name" property="deptName"></result>
+        <result column="parent_id" property="parentId"></result>
+        <result column="leader" property="leader"></result>
+        <result column="email" property="email"></result>
+        <result column="phone" property="phone"></result>
+        <result column="status" property="status"></result>
+        <result column="sort" property="sort"></result>
+        <result column="create_by" property="createBy"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_by" property="updateBy"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="remark" property="remark"></result>
+        <result column="address" property="address"></result>
+    </resultMap>
+
+
+
+    <select id="selectDeptByUserId" resultType="SysDept">
+        select * from sys_dept sd
+        left join sys_role_dept srd on srd.dept_id = sd.id
+        left join sys_user_role sur on sur.role_id = srd.role_id
+        where sur.user_id = #{userId}
+    </select>
+
+
+</mapper>

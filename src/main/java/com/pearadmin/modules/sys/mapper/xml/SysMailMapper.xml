@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysMailMapper">
+
+    <select id="selectList" parameterType="SysMail" resultType="sysMail">
+        select * from sys_mail
+        <where>
+            <if test="receiver != null and receiver != ''">
+                and receiver like CONCAT('%', #{receiver}, '%')
+            </if>
+            <if test="subject != null and subject != ''">
+                and subject like CONCAT('%', #{subject}, '%')
+            </if>
+            <if test="content != null and content != ''">
+                and content like CONCAT('%', #{content}, '%')
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:include="include :: header('主页')"/>
+</head>
+<body>
+<form action="" class="layui-form">
+  <div class="mainBox">
+    <div class="main-container">
+      <div class="main-container">
+<!--        名字-->
+          <input type="hidden" th:value="${typeId}" name="typeId">
+        <div class="layui-form-item">
+          <label class="layui-form-label"><span style="color:red;">*</span>类型名称</label>
+          <div class="layui-input-block">
+            <input autocomplete="off" class="layui-input" lay-verify="required" name="typeName"
+                   placeholder="请输入类型名称" th:value="${categoryName}" type="text">
+          </div>
+        </div>
+<!--        摘要1-->
+        <div class="layui-form-item">
+          <label class="layui-form-label"><span style="color:red;">*</span>摘要1</label>
+          <div class="layui-input-block">
+            <input autocomplete="off" class="layui-input" lay-verify="required" name="abstractOne"
+                   placeholder="请输入摘要1" th:value="${abstractOne}" type="text">
+          </div>
+        </div>
+<!--        摘要2-->
+        <div class="layui-form-item">
+          <label class="layui-form-label"><span style="color:red;">*</span>摘要2</label>
+          <div class="layui-input-block">
+            <input autocomplete="off" class="layui-input" lay-verify="required" name="abstractTwo"
+                   placeholder="请输入摘要2" th:value="${abstractTwo}" type="text">
+          </div>
+        </div>
+
+<!--        图片1-->
+        <div class="layui-form-item">
+          <label class="layui-form-label"><span style="color:red;">*</span>图片1</label>
+          <div class="layui-input-block">
+            <select name="imageOne">
+                <option  th:text="${imageOne}" th:value="${imageOne}"></option>
+                <option th:each="file:${files}" th:text="${file.id}" th:value="${file.id}"></option>
+            </select>
+          </div>
+        </div>
+
+<!--        图片2-->
+        <div class="layui-form-item">
+          <label class="layui-form-label"><span style="color:red;">*</span>图片2</label>
+          <div class="layui-input-block">
+            <select name="imageTwo">
+                <option  th:text="${imageTwo}" th:value="${imageTwo}"></option>
+              <option th:each="file:${files}" th:text="${file.id}" th:value="${file.id}"></option>
+            </select>
+          </div>
+        </div>
+<!--        第一段-->
+        <div class="layui-form-item">
+          <label class="layui-form-label">段落1</label>
+          <div class="layui-input-block">
+            <textarea   class="layui-textarea" lay-verify="required" name="paragraphOne"
+                       placeholder="请输入段落1" th:text="${paragraphOne}" type="text"></textarea>
+          </div>
+        </div>
+<!--        第一段-->
+        <div class="layui-form-item">
+          <label class="layui-form-label">段落2</label>
+          <div class="layui-input-block">
+            <textarea   class="layui-textarea" lay-verify="required" name="paragraphTwo"
+                       placeholder="请输入段落2" th:text="${paragraphTwo}" type="text"></textarea>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="button-container">
+      <button class="pear-btn pear-btn-primary pear-btn-sm" lay-filter="info-update" lay-submit=""
+              type="submit">
+        <i class="layui-icon layui-icon-ok"></i>
+        提交
+      </button>
+      <button class="pear-btn pear-btn-sm" type="reset">
+        <i class="layui-icon layui-icon-refresh"></i>
+        重置
+      </button>
+    </div>
+  </div>
+</form>
+<th:block th:include="include :: footer"/>
+</body>
+<script th:inline="javascript">
+  layui.use(['form', 'jquery'], function () {
+    let form = layui.form;
+    let $ = layui.jquery;
+
+
+    form.on('submit(info-update)', function (data) {
+
+        //data.field["_method"]="PUT"
+      $.ajax({
+        url: '/system/web/main/update/',
+
+        data: JSON.stringify(data.field),
+        dataType: 'json',
+        contentType: 'application/json',
+        type: 'PUT',
+        success: function (result) {
+          if (result.success) {
+            layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+
+            });
+          } else {
+            layer.msg(result.msg, {icon: 2, time: 1000});
+          }
+        }
+      })
+      return false;
+    });
+  })
+</script>
+
+</html>

@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta content="" name="description">
+        <meta content="" name="keywords">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="HandheldFriendly" content="true">
+        <meta content="telephone=no" name="format-detection">
+        <!-- favicon -->
+        <link rel="shortcut icon" type="image/png" th:href="@{/Volumes/未命名/上传文件2023-01-27/1618900378441482240.JPG}" />
+        <!--[if (gt IE 9)|!(IE)]><!-->
+        <!-- custom CSS -->
+        <link th:href="@{/web/css/main.css}" rel="stylesheet" type="text/css" />
+        <!-- END custom CSS -->
+        <!--<![endif]-->
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <title>[[${categoryName}]]</title>
+    </head>
+    <body>
+        <!-- Header -->
+        <header id="header" class="header">
+            <div class="header__top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="wrap-logo">
+                                <a th:href="@{../index.html}" class="logo"></a>
+                            </div>
+                        </div>
+                        <div class="col-sm-offset-2 col-md-offset-5 col-sm-6 col-md-4 hidden-xs">
+                            <div class="col-xs-4 col-sm-5">
+                                <div class="weather">
+                                    <div class="weather__temperature">
+                                        <span class="icon-sun"></span>
+                                        <em class="active">+8 C</em>
+                                        <em>+2 C</em>
+                                        <em>+3 C</em>
+                                    </div>
+                                    <div class="weather__city">
+                                        <em>London</em>
+                                        <div class="weather__city__list">
+                                            <ul>
+                                                <li class="active">
+                                                    <a th:href="@{#}">London</a>
+                                                </li>
+                                                <li>
+                                                    <a th:href="@{#}">Moscow</a>
+                                                </li>
+                                                <li>
+                                                    <a th:href="@{#}">Kiev</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-7">
+                                <div class="exchange">
+                                    <p class="exchange__name">Central Bank Rate</p>
+                                    <p class="exchange__course">
+                                        $<span>32.32</span>&#8364;<span>28.23</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wsmenucontent overlapblackbg"></div>
+            <div class="wsmenuexpandermain slideRight">
+                <a id="navToggle" class="animated-arrow slideLeft">
+                    <span></span>
+                </a>
+            </div>
+            <div class="header_down">
+                <div class="container">
+                    <div class="wrapper clearfix bigmegamenu">
+                        <!--Main Menu HTML Code-->
+                        <nav class="wsmenu slideLeft clearfix">
+                            <ul class="mobile-sub wsmenu-list">
+                                <li class="visible-xs">
+                                    <form class="navbar-form mob_search" role="search">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="Search">
+                                        </div>
+                                        <button type="submit" class="btn btn-search">
+                                            <i class="icon-search"></i>
+                                        </button>
+                                    </form>
+                                </li>
+
+                                <li class="active">
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/index}">首页</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/info/13432167553}">墙绘</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/info/jgh}">秸秆画</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/info/wp}">墙绘</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/info/jgh}">秸秆画</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/info/wp}">墙绘</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{/web/info/wp}">联系我们</a>
+                                </li>
+                                <li>
+                                    <span class="wsmenu-click"></span>
+                                    <a th:href="@{#}">Other
+                                        <span class="arrow"></span>
+                                    </a>
+                                    <ul class="wsmenu-submenu">
+                                        <li>
+                                            <a th:href="@{404.html}">404 page</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{category.html}">Category page</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{news.html}">News page</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{search-result.html}">Search result</a>
+                                        </li>
+                                        <li>
+                                            <a th:href="@{full-width.html}">Full width</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!--Menu HTML Code-->
+                    </div>
+                </div>
+            </div>
+
+        </header>
+        <!-- END header -->
+        <!-- header slider -->
+        <div class="wrapper">
+            <article class="container articles">
+                <div class="row">
+                    <div class="col-sm-4 col-md-3 right_sidebar hidden-xs hidden-sm" data-spy="affix" data-offset-top="112" data-offset-bottom="80">
+                        <div class="news-tabs">
+                            <p class="news-tabs__title h2">News feed</p>
+                            <ul class="news-tabs__nav nav nav-tabs shadow_text" role="tablist">
+                                <li role="presentation" class="active">
+                                    <a th:href="@{#}" role="tab" data-toggle="tab">
+<!--                                        <span class="time">today, 12:30</span>-->
+                                        [[${abstractOne}]]
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a th:href="@{#}" role="tab" data-toggle="tab">
+<!--                                        <span class="time">today, 12:30</span>-->
+                                        [[${abstractTwo}]]
+                                    </a>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-9 p0 wrap-headline">
+                        <img th:src="@{${imageOne}}" alt="img" class="wrap-headline__img">
+                        <div class="headline clearfix">
+                            <div class="headline__data">
+                                <a th:href="@{#}" class="headline__category headline__category_orange">Policy</a>
+                                <p class="headline__category">[[${date}]]</p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-9 article_text">
+                        <div class="current">
+                            <h1 class="text-center yel_line current__title">[[${categoryName}]]</h1>
+                            <p class="current__text">[[${paragraphOne}]]</p>
+                            <img th:src="@{${imageTwo}}" alt="img" class="current__img">
+                            <p class="current__text">[[${paragraphTwo}]]</p>
+                            <blockquote class="quote current__quote">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</blockquote>
+                            <p class="current__text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-9 tags">
+                        <p>Tags:</p>
+                        <ul>
+                            <li>
+                                <a th:href="@{#}" title="World" class="font">World</a>
+                            </li>
+                            <li>
+                                <a class="yellow font" th:href="@{#}" title="Sport">Sport</a>
+                            </li>
+                            <li>
+                                <a th:href="@{#}" title="Cats" class="font">Cats</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-9 col-md-8 col-lg-6 comments">
+                        <p class="comments__title">Comments</p>
+                        <div class="comments__media">
+                            <div class="media-middle">
+                                <i class="media-object" style="background-image: url('/web/img/content/comment.png')"></i>
+                                <div class="comm_info">
+                                    <h4 class="media-heading">Maria</h4>
+                                    <span class="time">today, 12:30</span>
+                                </div>
+                            </div>
+                            <p class="media-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                        <div class="comments__media">
+                            <div class="media-middle">
+                                <i class="media-object" style="background-image: url('/web/img/content/comment.png')"></i>
+                                <div class="comm_info">
+                                    <h4 class="media-heading">Maria</h4>
+                                    <span class="time">today, 12:30</span>
+                                </div>
+                            </div>
+                            <p class="media-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                        <div class="comments__media">
+                            <div class="media-middle">
+                                <i class="media-object" style="background-image: url('/web/img/content/comment.png')"></i>
+                                <div class="comm_info">
+                                    <h4 class="media-heading">Maria</h4>
+                                    <span class="time">today, 12:30</span>
+                                </div>
+                            </div>
+                            <p class="media-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        </div>
+                        <div class="comments__form">
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    <input type="text" style="width: 200px;" class="form-control" placeholder="Your name">
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="text" id="input" class="form-control" rows="7" required="required"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-comment">send</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <!-- Footer -->
+        <footer class="footer slate_gray">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="copyright">Copyright &copy; 2017.Company name All rights reserved.<a target="_blank" th:href="@{http://sc.chinaz.com/moban/}">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="social navbar-right">
+                            <p class="social__text">We are in social networks</p>
+                            <ul class="social__list">
+                                <li class="social__item">
+                                    <a class="facebook" th:href="@{#}">
+                                        <i class="icon-facebook"></i>
+                                    </a>
+                                </li>
+                                <li class="social__item">
+                                    <a class="twitter" th:href="@{#}">
+                                        <i class="icon-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="social__item">
+                                    <a class="gplus" th:href="@{#}">
+                                        <i class="icon-gplus"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END Footer -->
+        <!-- All JavaScript libraries -->
+        <script th:src="@{/web/js/jquery.min.js}"></script>
+        <script th:src="@{/web/js/bootstrap.min.js}"></script>
+        <!-- Custom JavaScript -->
+        <script th:src="@{/web/js/main.js}"></script>
+    </body>
+</html>
+

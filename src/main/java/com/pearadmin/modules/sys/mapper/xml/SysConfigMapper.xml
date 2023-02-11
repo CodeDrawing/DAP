@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysConfigMapper">
+
+    <select id="selectConfig" resultType="SysConfig">
+        select * from sys_config
+        <where>
+            config_type = 'custom'
+            <if test="configCode!=null and configCode!=''">
+                and config_code like "%"#{configCode}"%"
+            </if>
+            <if test="configName!=null and configName!=''">
+                and config_name like "%"#{configName}"%"
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据 Code 查询系统配置-->
+    <select id="selectByCode" parameterType="string" resultType="SysConfig">
+        select *
+        from sys_config
+        where config_code = #{code}
+    </select>
+
+</mapper>
