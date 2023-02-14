@@ -134,8 +134,8 @@ public class VelocityUtils {
             fileName = StringUtil.format("{}/main.html", htmlPath);
         } else if (template.contains("add.html.vm")) {
             fileName = StringUtil.format("{}/add.html", htmlPath);
-        } else if (template.contains("edit.html.vm")) {
-            fileName = StringUtil.format("{}/edit.html", htmlPath);
+        } else if (template.contains("center.html.vm")) {
+            fileName = StringUtil.format("{}/center.html", htmlPath);
         } else if (template.contains("sql.vm")) {
             fileName = businessName + "Menu.sql";
         }

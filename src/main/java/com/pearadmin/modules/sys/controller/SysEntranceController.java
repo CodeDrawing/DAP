@@ -5,10 +5,12 @@ import com.pearadmin.common.aop.enums.BusinessType;
 import com.pearadmin.common.context.UserContext;
 import com.pearadmin.common.web.base.BaseController;
 import com.pearadmin.common.secure.session.SecureSessionService;
+import com.pearadmin.modules.sys.domain.SysVisitData;
 import com.pearadmin.modules.sys.service.SysWebService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -89,7 +91,12 @@ public class SysEntranceController extends BaseController {
      * Return: 主页视图
      */
     @GetMapping("console")
-    public ModelAndView home() {
+    public ModelAndView home(Model model) {
+        SysVisitData sysVisitData = sysWebService.queryCurrentVisitDate();
+//        当日首页访问量
+        model.addAttribute("todayVisitIndex",sysVisitData.getTypeIndex());
+//         网站总访问量
+        model.addAttribute("sumVisitIndex",sysWebService.querySumVisitIndexData());
         return jumpPage("console/console");
     }
 

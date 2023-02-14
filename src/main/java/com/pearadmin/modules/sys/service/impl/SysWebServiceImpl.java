@@ -70,12 +70,14 @@ public class SysWebServiceImpl implements SysWebService {
             insertData.setVisitId(SequenceUtil.makeStringId());
             insertData.setDate(new Date());
             sysWebMapper.insertVisitData(insertData);
-        }else{
-//            have record,will query data again.
             SysVisitData sysVisitData1 = sysWebMapper.queryVisitData(sdf.format(new Date()));
             return  sysVisitData1;
+        }else{
+//            have record,will query data again.
+            SysVisitData sysVisitData2 = sysWebMapper.queryVisitData(sdf.format(new Date()));
+            return  sysVisitData2;
         }
-        return sysVisitData;
+
     }
 
     @Override
@@ -94,6 +96,11 @@ public class SysWebServiceImpl implements SysWebService {
     public int visitTwo() {
         int result = sysWebMapper.visitTwo(sdf.format(new Date()));
         return result;
+    }
+
+    @Override
+    public Integer querySumVisitIndexData() {
+        return sysWebMapper.querySumVisitIndexData();
     }
 
 }

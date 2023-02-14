@@ -57,6 +57,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     public boolean save(SysDept sysDept) {
         if (null == sysDept.getParentId()) {
             sysDept.setParentId("0");
+
         }
         int result = sysDeptMapper.insert(sysDept);
         return result > 0;

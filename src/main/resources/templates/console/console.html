@@ -9,7 +9,7 @@
     <div class="layui-row layui-col-space10">
         <div class="layui-col-xs6 layui-col-md3">
             <div class="layui-card top-panel">
-                <div class="layui-card-header">今日打卡人数</div>
+                <div class="layui-card-header">今日网站访问量</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs8 layui-col-md8 top-panel-number" id="value1" style="color: #28333E;">
@@ -50,7 +50,7 @@
         </div>
         <div class="layui-col-xs6 layui-col-md3">
             <div class="layui-card top-panel">
-                <div class="layui-card-header">7天打卡人数</div>
+                <div class="layui-card-header">网站总访问量</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs8 layui-col-md8 top-panel-number" id="value2" style="color: #28333E;">
@@ -90,7 +90,7 @@
         </div>
         <div class="layui-col-xs6 layui-col-md3">
             <div class="layui-card top-panel">
-                <div class="layui-card-header">30天打卡人数</div>
+                <div class="layui-card-header">下单总数</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs8 layui-col-md8 top-panel-number" id="value3" style="color: #28333E;">
@@ -124,7 +124,7 @@
         </div>
         <div class="layui-col-xs6 layui-col-md3">
             <div class="layui-card top-panel">
-                <div class="layui-card-header">年度打卡人数</div>
+                <div class="layui-card-header">项目总数</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs8 layui-col-md8 top-panel-number" id="value4" style="color: #28333E;">
@@ -187,8 +187,8 @@
 <input type="hidden" id="day30VisitData" th:value="${day30VisitData}">
 <input type="hidden" id="lastYearVisitData" th:value="${lastYearVisitData}">
 
-<input type="hidden" id="todayData" th:value="${todayVisitData}">
-<input type="hidden" id="last1DayData" th:value="${last1DayData}">
+<input type="hidden" id="todayData" th:value="${todayVisitIndex}">
+<input type="text" id="sumVisitIndex" th:value="${sumVisitIndex}">
 <input type="hidden" id="last2DayData" th:value="${last2DayData}">
 <input type="hidden" id="last3DayData" th:value="${last3DayData}">
 <input type="hidden" id="last4DayData" th:value="${last4DayData}">
@@ -217,7 +217,7 @@
 
         //图表数据 6天之内的数据
         var todayData=document.getElementById("todayData").value;
-        var last1DayData=document.getElementById("last1DayData").value;
+        var sumVisitIndex=document.getElementById("sumVisitIndex").value;
         var last2DayData=document.getElementById("last2DayData").value;
         var last3DayData=document.getElementById("last3DayData").value;
         var last4DayData=document.getElementById("last4DayData").value;
@@ -244,7 +244,7 @@
 
         count.up("value2", {
             time: 2000,
-            num: day7VisitData,
+            num: sumVisitIndex,
             bit: 0,
             regulator: 50
         })
@@ -304,7 +304,7 @@
             series: [{
                 name: '人数',
                 type: 'line',
-                data: [last5DayData, last4DayData, last3DayData, last2DayData, last1DayData, todayData],
+                data: [last5DayData, last4DayData, last3DayData, last2DayData, sumVisitIndex, todayData],
                 lineStyle: {
                     normal: {
                         width: 8,

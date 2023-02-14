@@ -20,7 +20,9 @@
             ,date=#{date}
         where type_id=#{typeId}
     </update>
-
+    <select id="querySumVisitIndexData" resultType="integer">
+        select sum(type_index) from sys_visit_data;
+    </select>
 
 
 

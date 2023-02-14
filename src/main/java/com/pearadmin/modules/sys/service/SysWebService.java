@@ -17,5 +17,7 @@ public interface SysWebService {
     int visitOne();
     //    新增秸秆画访问量
     int visitTwo();
+    //    查询总的首页访问量
+    Integer querySumVisitIndexData();
 
 }

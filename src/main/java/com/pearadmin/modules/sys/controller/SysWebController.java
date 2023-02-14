@@ -2,17 +2,22 @@ package com.pearadmin.modules.sys.controller;
 
 
 import com.pearadmin.common.constant.ControllerConstant;
+import com.pearadmin.common.context.UserContext;
 import com.pearadmin.common.web.base.BaseController;
 import com.pearadmin.common.web.domain.response.Result;
 import com.pearadmin.modules.sys.domain.SysFile;
 import com.pearadmin.modules.sys.domain.SysType;
+import com.pearadmin.modules.sys.domain.SysUser;
 import com.pearadmin.modules.sys.domain.SysVisitData;
 import com.pearadmin.modules.sys.mapper.SysWebMapper;
 import com.pearadmin.modules.sys.service.SysFileService;
+import com.pearadmin.modules.sys.service.SysUserService;
 import com.pearadmin.modules.sys.service.SysWebService;
 import com.pearadmin.modules.sys.service.impl.SysFileServiceImpl;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.val;
+import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.security.Security;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +40,8 @@ public class SysWebController extends BaseController {
     @Autowired
     SysWebService sysWebService;
 
+    @Autowired
+    SysUserService sysUserService;
 
     @Autowired()
     SysFileServiceImpl sysFileService;
@@ -71,7 +79,6 @@ public class SysWebController extends BaseController {
         model.addAttribute("abstractOne", sysType.getAbstractOne());
         model.addAttribute("abstractTwo", sysType.getAbstractTwo());
 
-        System.err.println(sysType.getImageOne());
 
         model.addAttribute("imageOne", sysType.getImageOne());
         model.addAttribute("imageTwo", sysType.getImageTwo());
@@ -92,8 +99,14 @@ public class SysWebController extends BaseController {
         return sysWebService.queryCurrentVisitDate();
     }
 
-
-
+    @GetMapping("center")
+    @ApiOperation(value = "修改个人信息视图")
+    @PreAuthorize("hasPermission('/system/web/center','sys:web:center')")
+    public ModelAndView center(Model model){
+        SysUser userId = sysUserService.getById(UserContext.currentUser().getUserId());
+        model.addAttribute("sysUser",userId);
+        return jumpPage(MODULE_PATH+"center");
+    }
 
 
     /**

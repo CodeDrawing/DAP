@@ -36,6 +36,7 @@ public class SysDept extends BaseDomain {
      */
     private String parentId;
 
+
     /**
      * 负责人
      */

@@ -93,6 +93,7 @@ public class SysDeptController extends BaseController {
     @PreAuthorize("hasPermission('/system/dept/add','sys:dept:add')")
     public Result save(@RequestBody SysDept sysDept) {
         sysDept.setDeptId(SequenceUtil.makeStringId());
+        sysDept.setParentId("0");
         boolean result = sysDeptService.save(sysDept);
         return decide(result);
     }

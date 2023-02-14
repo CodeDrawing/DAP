@@ -2,7 +2,9 @@ package com.pearadmin.modules.sys.mapper;
 
 import com.pearadmin.modules.sys.domain.SysType;
 import com.pearadmin.modules.sys.domain.SysVisitData;
+
 import org.apache.ibatis.annotations.Mapper;
+
 
 import java.util.Date;
 
@@ -15,6 +17,9 @@ public interface SysWebMapper {
 
 //    查询当天的访问量
     SysVisitData queryVisitData(String date);
+
+//    查询总的首页访问量
+    Integer querySumVisitIndexData();
 //    新增当天的访问记录
     int insertVisitData(SysVisitData insertData);
 
