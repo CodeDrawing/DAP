@@ -5,12 +5,10 @@ import com.pearadmin.common.constant.ControllerConstant;
 import com.pearadmin.common.context.UserContext;
 import com.pearadmin.common.web.base.BaseController;
 import com.pearadmin.common.web.domain.response.Result;
-import com.pearadmin.modules.sys.domain.SysFile;
-import com.pearadmin.modules.sys.domain.SysType;
-import com.pearadmin.modules.sys.domain.SysUser;
-import com.pearadmin.modules.sys.domain.SysVisitData;
+import com.pearadmin.modules.sys.domain.*;
 import com.pearadmin.modules.sys.mapper.SysWebMapper;
 import com.pearadmin.modules.sys.service.SysFileService;
+import com.pearadmin.modules.sys.service.SysOrderService;
 import com.pearadmin.modules.sys.service.SysUserService;
 import com.pearadmin.modules.sys.service.SysWebService;
 import com.pearadmin.modules.sys.service.impl.SysFileServiceImpl;
@@ -39,12 +37,12 @@ public class SysWebController extends BaseController {
 
     @Autowired
     SysWebService sysWebService;
-
     @Autowired
     SysUserService sysUserService;
-
-    @Autowired()
+    @Autowired
     SysFileServiceImpl sysFileService;
+    @Autowired
+    SysOrderService sysOrderService;
 
     @GetMapping("info/{categoryId}")
     public ModelAndView info(Model model, @PathVariable("categoryId") String categoryId) {
@@ -108,6 +106,25 @@ public class SysWebController extends BaseController {
         return jumpPage(MODULE_PATH+"center");
     }
 
+    @GetMapping("getOrder")
+    @ApiOperation(value = "下单")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public ModelAndView getOrderPage(Model model){
+        model.addAttribute("types",sysOrderService.queryAllTypes());
+        model.addAttribute("userName",UserContext.currentUser().getRealName());
+        model.addAttribute("phone",UserContext.currentUser().getPhone());
+        return jumpPage(MODULE_PATH+"buy");
+    }
+
+
+    @PutMapping("order")
+    @ApiOperation(value = "下单")
+    @ResponseBody
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public Result order(@RequestBody SysOrder sysOrder) {
+
+        return Result.decide(sysOrderService.insertOrder(sysOrder));
+    }
 
     /**
      * 页面跳转

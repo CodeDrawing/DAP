@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pearadmin.modules.sys.mapper.SysOrderMapper">
+
+<insert id="insertOrder" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
+    insert into sys_order(order_id,create_date,create_by,execute_by,phone,address,is_new,comment,type) values (#{orderId},#{createDate},#{createBy},#{executeBy},#{phone},#{address},#{isNew},#{comment},#{type})
+
+</insert>
+
+    <select id="queryAllTypes" resultType="com.pearadmin.modules.sys.domain.SysType">
+        select * from types_content
+    </select>
+
+</mapper>
