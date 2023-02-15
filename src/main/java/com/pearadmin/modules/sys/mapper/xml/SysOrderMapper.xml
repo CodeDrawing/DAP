@@ -3,7 +3,7 @@
 <mapper namespace="com.pearadmin.modules.sys.mapper.SysOrderMapper">
 
 <insert id="insertOrder" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
-    insert into sys_order(order_id,create_date,create_by,execute_by,phone,address,is_new,comment,type) values (#{orderId},#{createDate},#{createBy},#{executeBy},#{phone},#{address},#{isNew},#{comment},#{type})
+    insert into sys_order(order_id,create_date,create_by,execute_by,phone,address,is_new,comment,type_id,subject,contact_person,project_name) values (#{orderId},#{createDate},#{createBy},#{executeBy},#{phone},#{address},#{isNew},#{comment},#{type},#{subject},#{contactPerson},#{projectName})
 
 </insert>
 
@@ -11,4 +11,23 @@
         select * from types_content
     </select>
 
+    <select id="queryOrderByUserId" parameterType="string" resultType="com.pearadmin.modules.sys.domain.SysOrder">
+        select * from sys_order so,types_content tc where so.type_id=tc.type_id and create_by=#{userId} order by create_date desc
+    </select>
+    <select id="queryAllOrders" parameterType="com.pearadmin.modules.sys.domain.SysOrder" resultType="com.pearadmin.modules.sys.domain.SysOrder">
+        select project_name,type_name,subject,is_new,contact_person,real_name,order_progress_id,so.order_id from sys_order so
+                          left join types_content tc on so.type_id = tc.type_id
+                          left join sys_order_progress sop on so.order_id = sop.order_id
+                          left join sys_user su on so.execute_by = su.user_id COLLATE utf8mb4_unicode_ci
+
+        <where>
+                is_delete = 0
+            <if test="projectName!=null and projectName!=''">
+                and project_name like "%"#{projectName}"%"
+            </if>
+            <if test="executeBy!=null and executeBy!=''">
+                and execute_by like "%"#{executeBy}"%"
+            </if>
+        </where>
+    </select>
 </mapper>

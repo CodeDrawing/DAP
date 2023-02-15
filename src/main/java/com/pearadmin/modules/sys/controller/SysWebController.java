@@ -1,10 +1,13 @@
 package com.pearadmin.modules.sys.controller;
 
 
+import com.github.pagehelper.PageInfo;
 import com.pearadmin.common.constant.ControllerConstant;
 import com.pearadmin.common.context.UserContext;
 import com.pearadmin.common.web.base.BaseController;
+import com.pearadmin.common.web.domain.request.PageDomain;
 import com.pearadmin.common.web.domain.response.Result;
+import com.pearadmin.common.web.domain.response.module.ResultTable;
 import com.pearadmin.modules.sys.domain.*;
 import com.pearadmin.modules.sys.mapper.SysWebMapper;
 import com.pearadmin.modules.sys.service.SysFileService;
@@ -46,7 +49,7 @@ public class SysWebController extends BaseController {
 
     @GetMapping("info/{categoryId}")
     public ModelAndView info(Model model, @PathVariable("categoryId") String categoryId) {
-        if(categoryId.equals("13432167553")){
+        if (categoryId.equals("13432167553")) {
             sysWebService.visitOne();
         } else if (categoryId.equals("16134523735")) {
             sysWebService.visitTwo();
@@ -84,7 +87,7 @@ public class SysWebController extends BaseController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "main/update/",method = RequestMethod.PUT)
+    @RequestMapping(value = "main/update/", method = RequestMethod.PUT)
     @PreAuthorize("hasPermission('/system/web/main/update/','system:web:main:update')")
     public Result mainUpdate(@RequestBody SysType sysType) {
         return Result.decide(sysWebService.updateContent(sysType));
@@ -100,20 +103,21 @@ public class SysWebController extends BaseController {
     @GetMapping("center")
     @ApiOperation(value = "修改个人信息视图")
     @PreAuthorize("hasPermission('/system/web/center','sys:web:center')")
-    public ModelAndView center(Model model){
+    public ModelAndView center(Model model) {
+        model.addAttribute("sysRoles", sysUserService.getUserRole(UserContext.currentUser().getUserId()));
         SysUser userId = sysUserService.getById(UserContext.currentUser().getUserId());
-        model.addAttribute("sysUser",userId);
-        return jumpPage(MODULE_PATH+"center");
+        model.addAttribute("sysUser", userId);
+        return jumpPage(MODULE_PATH + "center");
     }
 
     @GetMapping("getOrder")
     @ApiOperation(value = "下单")
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
-    public ModelAndView getOrderPage(Model model){
-        model.addAttribute("types",sysOrderService.queryAllTypes());
-        model.addAttribute("userName",UserContext.currentUser().getRealName());
-        model.addAttribute("phone",UserContext.currentUser().getPhone());
-        return jumpPage(MODULE_PATH+"buy");
+    public ModelAndView getOrderPage(Model model) {
+        model.addAttribute("types", sysOrderService.queryAllTypes());
+        model.addAttribute("userName", UserContext.currentUser().getRealName());
+        model.addAttribute("phone", UserContext.currentUser().getPhone());
+        return jumpPage(MODULE_PATH + "buy");
     }
 
 
@@ -124,6 +128,35 @@ public class SysWebController extends BaseController {
     public Result order(@RequestBody SysOrder sysOrder) {
 
         return Result.decide(sysOrderService.insertOrder(sysOrder));
+    }
+
+    //    我的订单
+    @GetMapping("getOrders")
+    @ApiOperation(value = "我的订单")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public ModelAndView getMyOrdersPage(Model model) {
+        List<SysOrder> sysOrders = sysOrderService.queryOrderByUserId(UserContext.currentUser().getUserId());
+        model.addAttribute("orders",sysOrders);
+        return jumpPage(MODULE_PATH + "myOrders");
+    }
+
+//    跳转到订单数据列表
+    @GetMapping("getOrderList")
+    @ApiOperation(value = "跳转订单列表")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public ModelAndView getOrderList(){
+        return jumpPage("system/order/main");
+    }
+
+
+//    所有订单数据
+
+    @RequestMapping("order/data")
+    @ApiOperation(value = "获取订单数据")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public ResultTable getAllOrderData(PageDomain pageDomain,SysOrder param){
+        PageInfo<SysOrder> pageInfo=sysOrderService.queryAllOrders(param,pageDomain);
+        return pageTable(pageInfo.getList(),pageInfo.getTotal());
     }
 
     /**

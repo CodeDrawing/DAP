@@ -12,7 +12,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>类型</label>
                     <div class="layui-input-block">
-                        <select name="type">
+                        <select name="typeId">
                             <option th:each="type:${types}" th:text="${type.typeName}" th:value="${type.typeId}"></option>
                         </select>
                     </div>
@@ -21,22 +21,29 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>联系人</label>
                     <div class="layui-input-block">
-                        <input autocomplete="off" class="layui-input" lay-verify="required" name="createBy"
-                               placeholder="请输入标题" th:value="${userName}" type="text">
+                        <input autocomplete="off" class="layui-input" lay-verify="required" name="contactPerson"
+                               placeholder="请输入联系人" th:value="${userName}" type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>联系电话</label>
                     <div class="layui-input-block">
                         <input autocomplete="off" lay-verify="phone" class="layui-input" name="phone"
-                               placeholder="请输入标题" th:value="${phone}" type="text">
+                               placeholder="请输入联系电话" th:value="${phone}" type="text">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red;">*</span>主题</label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" lay-verify="required" name="subject"
+                               placeholder="请输入主题"  type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>项目地址</label>
                     <div class="layui-input-block">
                         <input autocomplete="off" lay-verify="required" class="layui-input" name="address"
-                               placeholder="请输入标题" type="text">
+                               placeholder="请输入项目地址" type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">

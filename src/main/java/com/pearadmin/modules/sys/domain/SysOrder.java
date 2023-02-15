@@ -12,14 +12,25 @@ import java.util.Date;
 @ToString
 public class SysOrder {
     Date createDate;
-//    联系人
+//    创建人
     String createBy;
+//联系人
+    String contactPerson;
+
 //    所属人
     String executeBy;
+    String realName;
     String phone;
     String address;
     Integer isNew;
     String comment;
     String orderId;
-    String type;
+    String typeId;
+//    主题
+    String subject;
+//    项目名称
+    String projectName;
+//    类型名称
+    String typeName;
+    String orderProgressId;
 }

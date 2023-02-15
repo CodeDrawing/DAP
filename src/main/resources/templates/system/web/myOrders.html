@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('我的订单')"/>
+</head>
+<body class="pear-container">
+<div class="layui-row layui-col-space10" th:each="order:${orders}">
+    <div class="layui-col-xs12 layui-col-md12">
+        <div class="layui-card top-panel">
+            <div class="layui-card-header"><label align="center" style="font-size: x-large">[[${order.ProjectName}]]&nbsp;&nbsp;---&nbsp;&nbsp;</label><label style="color: #3c3c3c">[[${order.typeName}]]</label></div>
+            <div class="layui-card-body">
+                <div class="layui-row layui-col-space5">
+                    <label class="control-label">下单日期：[[${#dates.format(order.createDate,'yyyy-MM-dd HH:mm')}]]</label>
+                    <br>
+                    <label class="control-label">项目联系人：[[${order.contactPerson}]]</label>
+                    <br>
+                    <label class="control-label">项目地址：[[${order.address}]]</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:include="include :: footer"/>
+</body>
+
+
+</html>
