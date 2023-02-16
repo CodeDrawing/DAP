@@ -60,7 +60,7 @@
         where order_id=#{orderId}
     </delete>
     <insert id="addOrderProgress" parameterType="com.pearadmin.modules.sys.domain.SysOrderProgress">
-        insert into sys_order_progress(order_id,order_progress_id,comment,create_date,create_by)
-        values (#{orderId},#{orderProgressId},#{comment},#{createDate},#{createBy})
+        insert into sys_order_progress(order_id,order_progress_id,comment,create_date,create_by,title)
+        values (#{orderId},#{orderProgressId},#{comment},#{createDate},#{createBy},#{title})
     </insert>
 </mapper>

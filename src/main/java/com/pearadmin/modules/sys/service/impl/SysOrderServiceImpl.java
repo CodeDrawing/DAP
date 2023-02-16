@@ -27,6 +27,17 @@ public class SysOrderServiceImpl implements SysOrderService {
         sysOrder.setCreateDate(new Date());
         sysOrder.setOrderId(SequenceUtil.makeStringId());
         sysOrder.setProjectName("请等待管理员命名");
+
+
+        SysOrderProgress sysOrderProgress = new SysOrderProgress();
+        sysOrderProgress.setOrderId(sysOrder.getOrderId());
+        sysOrderProgress.setCreateBy(UserContext.currentUser().getUserId());
+        sysOrderProgress.setOrderProgressId(SequenceUtil.makeStringId());
+        sysOrderProgress.setCreateDate(new Date());
+        sysOrderProgress.setComment("无");
+        sysOrderProgress.setTitle(UserContext.currentUser().getRealName()+"创建了改订单");
+        addOrderProgress(sysOrderProgress);
+
         int result = sysOrderMapper.insertOrder(sysOrder);
         if(result!=0){
             return true;
