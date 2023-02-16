@@ -143,4 +143,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper,SysUser> imple
         return sysUserMapper.selectOne(wrapper);
     }
 
+
+    /**
+     * 查询所有非用户组数据
+     * @return
+     */
+    public List<SysUser> queryAllNotUserUsers(){
+        List<SysUser> sysUsers = sysUserMapper.queryAllNotUserUsers();
+        return sysUsers;
+    };
 }

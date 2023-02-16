@@ -6,6 +6,7 @@ import com.pearadmin.common.context.UserContext;
 import com.pearadmin.common.tools.SequenceUtil;
 import com.pearadmin.common.web.domain.request.PageDomain;
 import com.pearadmin.modules.sys.domain.SysOrder;
+import com.pearadmin.modules.sys.domain.SysOrderProgress;
 import com.pearadmin.modules.sys.domain.SysRole;
 import com.pearadmin.modules.sys.domain.SysType;
 import com.pearadmin.modules.sys.mapper.SysOrderMapper;
@@ -51,5 +52,39 @@ public class SysOrderServiceImpl implements SysOrderService {
         PageHelper.startPage(pageDomain.getPage(),pageDomain.getLimit());
         List<SysOrder> sysOrders = sysOrderMapper.queryAllOrders(param);
         return new PageInfo<>(sysOrders);
+    }
+
+    @Override
+    public boolean editOrder(SysOrder sysOrder) {
+        int result = sysOrderMapper.editOrder(sysOrder);
+        if(result==1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public SysOrder queryOrderByOrderId(String orderId) {
+        SysOrder sysOrder = sysOrderMapper.queryOrderByOrderId(orderId);
+        return sysOrder;
+    }
+
+    @Override
+    public boolean deleteOrder(String orderId) {
+        sysOrderMapper.deleteOrder(orderId);
+
+            return true;
+
+    }
+
+    @Override
+    public boolean addOrderProgress(SysOrderProgress sysOrderProgress) {
+        int result = sysOrderMapper.addOrderProgress(sysOrderProgress);
+        if(result==1){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

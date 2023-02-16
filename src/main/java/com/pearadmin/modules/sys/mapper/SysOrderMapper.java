@@ -1,9 +1,6 @@
 package com.pearadmin.modules.sys.mapper;
 
-import com.pearadmin.modules.sys.domain.SysOrder;
-import com.pearadmin.modules.sys.domain.SysRole;
-import com.pearadmin.modules.sys.domain.SysType;
-import com.pearadmin.modules.sys.domain.SysVisitData;
+import com.pearadmin.modules.sys.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -21,5 +18,19 @@ public interface SysOrderMapper {
     List<SysOrder> queryOrderByUserId(String userId);
 
     List<SysOrder> queryAllOrders(SysOrder param);
+
+    int editOrder(SysOrder sysOrder);
+
+    SysOrder queryOrderByOrderId(String orderId);
+
+    /**
+     * 修改is_delete为1 表示删除
+     * @param orderId
+     * @return
+     */
+    int deleteOrder(String orderId);
+
+//    新增订单进度
+    int addOrderProgress(SysOrderProgress sysOrderProgress);
 
 }

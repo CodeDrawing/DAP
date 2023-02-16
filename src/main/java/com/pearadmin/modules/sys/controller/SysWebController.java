@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import javax.websocket.server.PathParam;
 import java.security.Security;
 import java.util.List;
 import java.util.Map;
@@ -130,6 +131,26 @@ public class SysWebController extends BaseController {
         return Result.decide(sysOrderService.insertOrder(sysOrder));
     }
 
+
+    @GetMapping("getEditOrdersPage/{orderId}")
+    @ApiOperation(value = "我的订单")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public ModelAndView getEditOrdersPage(@PathVariable("orderId") String orderId, Model model) {
+        SysOrder sysOrder = sysOrderService.queryOrderByOrderId(orderId);
+        model.addAttribute("order",sysOrder);
+        model.addAttribute("users",sysUserService.queryAllNotUserUsers());
+        model.addAttribute("types",sysOrderService.queryAllTypes());
+        return jumpPage(  "system/order/edit");
+    }
+
+    @PutMapping("editOrder")
+    @ApiOperation(value = "修改订单")
+    @ResponseBody
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public Result editOrder(@RequestBody SysOrder sysOrder) {
+        return Result.decide(sysOrderService.editOrder(sysOrder));
+    }
+
     //    我的订单
     @GetMapping("getOrders")
     @ApiOperation(value = "我的订单")
@@ -158,6 +179,15 @@ public class SysWebController extends BaseController {
         PageInfo<SysOrder> pageInfo=sysOrderService.queryAllOrders(param,pageDomain);
         return pageTable(pageInfo.getList(),pageInfo.getTotal());
     }
+
+
+    @DeleteMapping("remove/{orderId}")
+    @ApiOperation(value = "删除订单")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public Result editOrder(@PathVariable("orderId")String orderId) {
+        return decide(sysOrderService.deleteOrder(orderId));
+    }
+
 
     /**
      * 页面跳转

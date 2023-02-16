@@ -20,12 +20,15 @@ public class SysOrder {
 //    所属人
     String executeBy;
     String realName;
+    String userId;
     String phone;
     String address;
     Integer isNew;
     String comment;
     String orderId;
     String typeId;
+
+
 //    主题
     String subject;
 //    项目名称

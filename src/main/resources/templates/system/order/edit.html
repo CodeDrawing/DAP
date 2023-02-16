@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('下单')"/>
+    <th:block th:include="include :: header('修改订单')"/>
 </head>
 <body>
 <form action="" class="layui-form">
@@ -9,48 +9,72 @@
         <div class="main-container">
             <div class="main-container">
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color:red;">*</span>类型</label>
+                <div class="layui-hide">
                     <div class="layui-input-block">
-                        <select name="typeId">
-                            <option th:each="type:${types}" th:text="${type.typeName}" th:value="${type.typeId}"></option>
-                        </select>
+                        <input autocomplete="off" class="layui-input" lay-verify="required" name="orderId"
+                               th:value="${order.orderId}" type="text">
                     </div>
                 </div>
 
                 <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red;">*</span>项目名</label>
+                    <div class="layui-input-block">
+                        <input autocomplete="off" class="layui-input" lay-verify="required" name="projectName"
+                               placeholder="请输入项目名" th:value="${order.projectName}" type="text">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red;">*</span>类型</label>
+                    <div class="layui-input-block">
+                        <select name="typeId">
+                            <option th:text="${order.typeName}" th:value="${order.typeId}"></option>
+                            <option th:each="type:${types}" th:text="${type.typeName}" th:value="${type.typeId}"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>联系人</label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" lay-verify="required" name="contactPerson"
-                               placeholder="请输入联系人" th:value="${userName}" type="text">
+                               placeholder="请输入联系人" th:value="${order.contactPerson}" type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>联系电话</label>
                     <div class="layui-input-block">
                         <input autocomplete="off" lay-verify="phone" class="layui-input" name="phone"
-                               placeholder="请输入联系电话" th:value="${phone}" type="text">
+                               placeholder="请输入联系电话" th:value="${order.phone}" type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>主题</label>
                     <div class="layui-input-block">
                         <input autocomplete="off" class="layui-input" lay-verify="required" name="subject"
-                               placeholder="请输入主题"  type="text">
+                               placeholder="请输入主题" th:value="${order.subject}" type="text">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color:red;">*</span>项目地址</label>
                     <div class="layui-input-block">
                         <input autocomplete="off" lay-verify="required" class="layui-input" name="address"
-                               placeholder="请输入项目地址" type="text">
+                               placeholder="请输入项目地址" type="text" th:value="${order.address}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color:red;">*</span>负责人</label>
+                    <div class="layui-input-block">
+                        <select name="executeBy">
+                            <option th:text="${order.userId}" th:value="${order.realName}"></option>
+                            <option th:each="uesr:${users}" th:text="${uesr.realName}" th:value="${uesr.userId}"></option>
+                        </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">要求</label>
                     <div class="layui-input-block">
                        <textarea class="layui-textarea" name="comment"
-                                 placeholder="请输入所需要求" type="text"></textarea>
+                                 placeholder="请输入所需要求" type="text" th:text="${order.comment}"></textarea>
                     </div>
                 </div>
             </div>
@@ -83,7 +107,7 @@
 
 
             $.ajax({
-                url: '/system/web/order',
+                url: '/system/web/editOrder',
                 data: JSON.stringify(data.field),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -91,7 +115,8 @@
                 success: function (result) {
                     if (result.success) {
                         layer.msg(result.msg, {icon: 1, time: 1000}, function () {
-                            window.location.reload();
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.layui.table.reload("order-table");
                         });
                     } else {
                         layer.msg(result.msg, {icon: 2, time: 1000});

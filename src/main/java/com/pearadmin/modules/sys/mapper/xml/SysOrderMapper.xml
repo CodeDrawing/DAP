@@ -3,7 +3,7 @@
 <mapper namespace="com.pearadmin.modules.sys.mapper.SysOrderMapper">
 
 <insert id="insertOrder" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
-    insert into sys_order(order_id,create_date,create_by,execute_by,phone,address,is_new,comment,type_id,subject,contact_person,project_name) values (#{orderId},#{createDate},#{createBy},#{executeBy},#{phone},#{address},#{isNew},#{comment},#{type},#{subject},#{contactPerson},#{projectName})
+    insert into sys_order(order_id,create_date,create_by,execute_by,phone,address,is_new,comment,type_id,subject,contact_person,project_name) values (#{orderId},#{createDate},#{createBy},#{executeBy},#{phone},#{address},#{isNew},#{comment},#{typeId},#{subject},#{contactPerson},#{projectName})
 
 </insert>
 
@@ -15,7 +15,7 @@
         select * from sys_order so,types_content tc where so.type_id=tc.type_id and create_by=#{userId} order by create_date desc
     </select>
     <select id="queryAllOrders" parameterType="com.pearadmin.modules.sys.domain.SysOrder" resultType="com.pearadmin.modules.sys.domain.SysOrder">
-        select project_name,type_name,subject,is_new,contact_person,real_name,order_progress_id,so.order_id from sys_order so
+        select project_name,type_name,subject,is_new,contact_person,real_name,order_progress_id,so.order_id,so.create_date from sys_order so
                           left join types_content tc on so.type_id = tc.type_id
                           left join sys_order_progress sop on so.order_id = sop.order_id
                           left join sys_user su on so.execute_by = su.user_id COLLATE utf8mb4_unicode_ci
@@ -30,4 +30,37 @@
             </if>
         </where>
     </select>
+
+    <update id="editOrder" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
+        update sys_order
+        set
+            project_name=#{projectName},
+            type_id=#{typeId},
+            contact_person=#{contactPerson},
+            phone=#{phone},
+            subject=#{subject},
+            address=#{address},
+            execute_by=#{executeBy},
+            comment=#{comment}
+        where
+            order_id=#{orderId}
+    </update>
+    <select id="queryOrderByOrderId" parameterType="string" resultType="com.pearadmin.modules.sys.domain.SysOrder">
+        select project_name,tc.type_name,tc.type_id,subject,contact_person,su.real_name,su.user_id,so.order_id,so.create_date,so.phone,so.address,so.comment
+        from sys_order so
+            left join types_content tc on so.type_id = tc.type_id
+            left join sys_order_progress sop on so.order_id = sop.order_id
+            left join sys_user su on so.execute_by = su.user_id COLLATE utf8mb4_unicode_ci
+         where so.order_id=#{orderId}
+    </select>
+    <delete id="deleteOrder" parameterType="string">
+        update sys_order
+        set
+            is_delete=1
+        where order_id=#{orderId}
+    </delete>
+    <insert id="addOrderProgress" parameterType="com.pearadmin.modules.sys.domain.SysOrderProgress">
+        insert into sys_order_progress(order_id,order_progress_id,comment,create_date,create_by)
+        values (#{orderId},#{orderProgressId},#{comment},#{createDate},#{createBy})
+    </insert>
 </mapper>

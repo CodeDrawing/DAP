@@ -31,4 +31,12 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      */
     Integer resetDeptByDeptIds(String[] deptIds);
 
+    /**
+     * 查询所有非用户组数据
+     * @return
+     */
+    List<SysUser> queryAllNotUserUsers();
+
+
+
 }

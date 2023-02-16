@@ -51,4 +51,10 @@
             #{deptId}
         </foreach>
     </update>
+
+    <select id="queryAllNotUserUsers" resultType="SysUser">
+        select  distinct su.user_id,su.real_name from sys_user su
+                                                          left join sys_user_role sur on su.user_id = sur.user_id
+        where su.user_id=sur.user_id and role_id!= (select role_id from sys_role where role_name='用户')
+    </select>
 </mapper>

@@ -61,12 +61,17 @@
            lay-filter="isNew" {{d.enable== '1' ? 'checked' : '' }} >
 </script>
 
+<script id="order-createDate" type="text/html">
+    {{layui.util.toDateString(d.createDate,  "yyyy-MM-dd HH:mm:ss")}}
+</script>
+
 <th:block th:include="include :: footer"/>
 <script>
     layui.use(['table', 'form', 'jquery', 'popup', 'common'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
+        let popup = layui.popup;
 
         let MODULE_PATH = "/system/web/";
 
@@ -78,6 +83,7 @@
                 {title: '是否已经联系', field: 'isNew', align: 'center', templet: '#isNew'},
                 {title: '联系人', field: 'contactPerson', align: 'center'},
                 {title: '负责人', field: 'realName', align: 'center'},
+                {title: '创建时间', field: 'createDate', align: 'center',templet:'order-createDate' },
                 {title: '操作', toolbar: '#order-bar', align: 'center', width: 155}
             ]
         ]
@@ -153,11 +159,32 @@
                 content: MODULE_PATH + 'getOrder'
             });
         }
+        window.remove = function (obj) {
+            layer.confirm('确定要删除该项目吗', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: MODULE_PATH + "remove/" + obj.data['orderId'],
+                    dataType: 'json',
+                    type: 'delete',
+                    success: function (result) {
+                        layer.close(loading);
+                        if (result.success) {
+                            popup.success(result.msg, function () {
+                                obj.del();
+                            });
+                        } else {
+                            popup.failure(result.msg);
+                        }
+                    }
+                })
+            });
+        }
 
         window.progress = function (obj) {
             layer.open({
                 type: 2,
-                title: '新增该项目进度',
+                title: '新增项目进度',
                 shade: 0.1,
                 area: ['320px', '400px'],
                 content: MODULE_PATH + 'addProgress/' + obj.data["orderProgressId"]
@@ -172,7 +199,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '500px'],
-                content: MODULE_PATH + 'edit/' + obj.data['orderId']
+                content: MODULE_PATH + 'getEditOrdersPage/' + obj.data['orderId']
             });
         }
 

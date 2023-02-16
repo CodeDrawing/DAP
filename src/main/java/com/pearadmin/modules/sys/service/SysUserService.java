@@ -62,5 +62,12 @@ public interface SysUserService extends IService<SysUser> {
 
     SysUser getUserByUsername(String username);
 
+
+    /**
+     * 查询所有非用户组数据
+     * @return
+     */
+    List<SysUser> queryAllNotUserUsers();
+
 }
 
