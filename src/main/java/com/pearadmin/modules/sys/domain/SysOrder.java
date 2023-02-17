@@ -23,7 +23,7 @@ public class SysOrder {
     String userId;
     String phone;
     String address;
-    Integer isNew;
+    String isNew;
     String comment;
     String orderId;
     String typeId;

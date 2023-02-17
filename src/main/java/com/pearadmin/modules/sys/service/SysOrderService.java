@@ -25,5 +25,9 @@ public interface SysOrderService {
      */
     boolean deleteOrder(String orderId);
     boolean addOrderProgress(SysOrderProgress sysOrderProgress);
+    //    查询进度信息根据用户Id
+    List<SysOrderProgress> queryOrderProressByUsreId(String orderId);
+    //    修改项目是否为新项目（已联系)
+    boolean updateOrderIsNew(String orderId, String operate);
 
 }

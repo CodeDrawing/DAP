@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="include :: header('项目进度')"/>
+</head>
+<body>
+
+<div class="layui-card-header">添加进度</div>
+
+<form action="" class="layui-form">
+    <div class="layui-hide layui-form-text">
+        <div class="layui-input-block">
+            <input class="layui-textarea" type="text" name="orderId" th:value="${orderId}">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">概述</label>
+        <div class="layui-input-block">
+            <input autocomplete="off" type="text" class="layui-input" lay-verify="required" name="title"
+                   placeholder="请输入概述信息">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">详细描述</label>
+        <div class="layui-input-block">
+            <textarea type="text" class="layui-textarea" name="comment" placeholder="请输入详细描述"></textarea>
+        </div>
+
+    </div>
+
+    <div class="button-container">
+        <button class="pear-btn pear-btn-primary pear-btn-sm" lay-filter="add-progress" lay-submit=""
+                type="submit">
+            <i class="layui-icon layui-icon-ok"></i>
+            提交
+        </button>
+    </div>
+
+</form>
+</br>
+<p></p>
+</br>
+
+<div class="layui-card">
+    <div class="layui-card-header">[[${projectName}]]进度</div>
+    <div class="layui-card-body">
+        <div class="layui-tab custom-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+            <ul class="layui-timeline" th:each="orderProgress:${orderProgresses}">
+                <!--                            循环-->
+                <li class="layui-timeline-item">
+                    <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                    <div class="layui-timeline-content layui-text">
+                        <h3 class="layui-timeline-title">[[${#dates.format(orderProgress.createDate,'yyyy-MM-dd
+                            HH:mm:ss')}]]&nbsp;&nbsp;&nbsp;更新人:[[${orderProgress.realName}]]</h3>
+                        <p>
+                        <h5>标题:[[${orderProgress.title}]]</h5>
+                        <br>内容:[[${orderProgress.comment}]]
+                        </p>
+                    </div>
+                </li>
+                <!-- 循环-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:include="include :: footer"/>
+
+<script>
+    layui.use(['form', 'jquery'], function () {
+        let form = layui.form;
+        let $ = layui.jquery;
+
+        form.on('submit(add-progress)', function (data) {
+            console.log(data);
+            $.ajax({
+                url: '/system/web/addProgress',
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'PUT',
+                success: function (result) {
+                    if (result.success) {
+                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                            window.location.reload();
+                        });
+                    } else {
+                        layer.msg(result.msg, {icon: 2, time: 1000});
+                    }
+                }
+            })
+            return false;
+        });
+    })
+</script>
+</body>
+</html>

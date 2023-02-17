@@ -65,7 +65,7 @@
                     <label class="layui-form-label"><span style="color:red;">*</span>负责人</label>
                     <div class="layui-input-block">
                         <select name="executeBy">
-                            <option th:text="${order.userId}" th:value="${order.realName}"></option>
+                            <option th:text="${order.realName}" th:value="${order.userId}"></option>
                             <option th:each="uesr:${users}" th:text="${uesr.realName}" th:value="${uesr.userId}"></option>
                         </select>
                     </div>

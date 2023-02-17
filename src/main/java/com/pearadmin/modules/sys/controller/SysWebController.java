@@ -180,6 +180,38 @@ public class SysWebController extends BaseController {
         return pageTable(pageInfo.getList(),pageInfo.getTotal());
     }
 
+    //    订单进度
+    @GetMapping("getOrderProgress/{orderId}")
+    @ApiOperation(value = "订单进度")
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public ModelAndView getOrderProgress(@PathVariable("orderId") String orderId, Model model) {
+        List<SysOrderProgress> orderProgresses = sysOrderService.queryOrderProressByUsreId(orderId);
+        model.addAttribute("projectName",sysOrderService.queryOrderByOrderId(orderId).getProjectName());
+        model.addAttribute("orderProgresses",orderProgresses);
+        model.addAttribute("orderId",orderId);
+        return jumpPage("system/order/progress");
+    }
+    //    订单进度
+    @PutMapping("addProgress")
+    @ApiOperation(value = "新增订单进度")
+    @ResponseBody
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public Result addProgress(@RequestBody SysOrderProgress sysOrderProgress) {
+        System.err.println(sysOrderProgress);
+        System.err.println(sysOrderProgress.getOrderId());
+        System.err.println(sysOrderProgress.getTitle());
+        return Result.decide(sysOrderService.addOrderProgress(sysOrderProgress));
+    }
+    //    修改是否已联系
+    @PutMapping("orderIsNew/{operate}")
+    @ApiOperation(value = "修改是否已联系")
+    @ResponseBody
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public Result orderIsNew(@PathVariable("operate")String operate,@RequestBody SysOrder order) {
+        return Result.decide(sysOrderService.updateOrderIsNew(order.getOrderId(),operate));
+    }
+
+
 
     @DeleteMapping("remove/{orderId}")
     @ApiOperation(value = "删除订单")

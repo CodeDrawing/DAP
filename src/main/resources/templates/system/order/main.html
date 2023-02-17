@@ -57,8 +57,8 @@
 </script>
 
 <script id="isNew" type="text/html">
-    <input type="checkbox" name="enable" value="{{d.orderId}}" lay-skin="switch" lay-text="未联系|已联系"
-           lay-filter="isNew" {{d.enable== '1' ? 'checked' : '' }} >
+    <input type="checkbox" name="enable" value="{{d.orderId}}" lay-skin="switch" lay-text="已联系|未联系"
+           lay-filter="isNew" {{d.isNew== '1' ? 'checked' : '' }} >
 </script>
 
 <script id="order-createDate" type="text/html">
@@ -83,7 +83,7 @@
                 {title: '是否已经联系', field: 'isNew', align: 'center', templet: '#isNew'},
                 {title: '联系人', field: 'contactPerson', align: 'center'},
                 {title: '负责人', field: 'realName', align: 'center'},
-                {title: '创建时间', field: 'createDate', align: 'center',templet:'order-createDate' },
+                {title: '创建时间', field: 'createDate', align: 'center',templet:'#order-createDate' },
                 {title: '操作', toolbar: '#order-bar', align: 'center', width: 155}
             ]
         ]
@@ -128,14 +128,14 @@
         form.on('switch(isNew)', function (obj) {
             let operate;
             if (obj.elem.checked) {
-                operate = "new";
+                operate = "1";
             } else {
-                operate = "notNow";
+                operate = "0";
             }
             let loading = layer.load()
             $.ajax({
-                url: '/system/web/order/' + operate,
-                data: JSON.stringify({roleId: this.value}),
+                url: '/system/web/orderIsNew/' + operate,
+                data: JSON.stringify({orderId: this.value}),
                 dataType: 'json',
                 contentType: 'application/json',
                 type: 'put',
@@ -184,10 +184,10 @@
         window.progress = function (obj) {
             layer.open({
                 type: 2,
-                title: '新增项目进度',
+                title: '项目进度',
                 shade: 0.1,
-                area: ['320px', '400px'],
-                content: MODULE_PATH + 'addProgress/' + obj.data["orderProgressId"]
+                area: ['400px', '600px'],
+                content: MODULE_PATH + 'getOrderProgress/' + obj.data["orderId"]
             });
         }
 

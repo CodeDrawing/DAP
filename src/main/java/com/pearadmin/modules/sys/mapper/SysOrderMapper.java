@@ -32,5 +32,10 @@ public interface SysOrderMapper {
 
 //    新增订单进度
     int addOrderProgress(SysOrderProgress sysOrderProgress);
+//    查询进度信息根据项目Id
+    List<SysOrderProgress> queryOrderProressByUsreId(String orderId);
+
+//    修改项目是否为新项目（已联系)
+    int updateOrderIsNew(SysOrder sysOrder);
 
 }

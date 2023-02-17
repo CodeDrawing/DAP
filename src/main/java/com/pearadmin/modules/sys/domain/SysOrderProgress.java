@@ -17,6 +17,9 @@ public class SysOrderProgress {
     String comment;
     Date createDate;
     String createBy;
+//    创建人姓名
+    String realName;
+
     String projectName;
     String title;
 }

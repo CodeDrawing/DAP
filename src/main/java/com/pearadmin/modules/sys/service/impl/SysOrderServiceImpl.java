@@ -91,7 +91,30 @@ public class SysOrderServiceImpl implements SysOrderService {
 
     @Override
     public boolean addOrderProgress(SysOrderProgress sysOrderProgress) {
+        sysOrderProgress.setCreateBy(UserContext.currentUser().getUserId());
+        sysOrderProgress.setCreateDate(new Date());
+        sysOrderProgress.setOrderProgressId(SequenceUtil.makeStringId());
         int result = sysOrderMapper.addOrderProgress(sysOrderProgress);
+        if(result==1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public List<SysOrderProgress> queryOrderProressByUsreId(String orderId) {
+        List<SysOrderProgress> sysOrderProgresses = sysOrderMapper.queryOrderProressByUsreId(orderId);
+        return sysOrderProgresses;
+    }
+
+    @Override
+    public boolean updateOrderIsNew(String orderId, String operate) {
+
+        SysOrder sysOrder = new SysOrder();
+        sysOrder.setOrderId(orderId);
+        sysOrder.setIsNew(operate);
+        int result = sysOrderMapper.updateOrderIsNew(sysOrder);
         if(result==1){
             return true;
         }else {

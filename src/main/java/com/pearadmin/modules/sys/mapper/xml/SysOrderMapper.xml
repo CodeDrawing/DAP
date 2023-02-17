@@ -15,9 +15,9 @@
         select * from sys_order so,types_content tc where so.type_id=tc.type_id and create_by=#{userId} order by create_date desc
     </select>
     <select id="queryAllOrders" parameterType="com.pearadmin.modules.sys.domain.SysOrder" resultType="com.pearadmin.modules.sys.domain.SysOrder">
-        select project_name,type_name,subject,is_new,contact_person,real_name,order_progress_id,so.order_id,so.create_date from sys_order so
+        select  project_name,type_name,subject,is_new,contact_person,real_name,so.order_id,so.create_date from sys_order so
                           left join types_content tc on so.type_id = tc.type_id
-                          left join sys_order_progress sop on so.order_id = sop.order_id
+
                           left join sys_user su on so.execute_by = su.user_id COLLATE utf8mb4_unicode_ci
 
         <where>
@@ -49,7 +49,6 @@
         select project_name,tc.type_name,tc.type_id,subject,contact_person,su.real_name,su.user_id,so.order_id,so.create_date,so.phone,so.address,so.comment
         from sys_order so
             left join types_content tc on so.type_id = tc.type_id
-            left join sys_order_progress sop on so.order_id = sop.order_id
             left join sys_user su on so.execute_by = su.user_id COLLATE utf8mb4_unicode_ci
          where so.order_id=#{orderId}
     </select>
@@ -63,4 +62,18 @@
         insert into sys_order_progress(order_id,order_progress_id,comment,create_date,create_by,title)
         values (#{orderId},#{orderProgressId},#{comment},#{createDate},#{createBy},#{title})
     </insert>
+    <select id="queryOrderProressByUsreId" parameterType="string" resultType="com.pearadmin.modules.sys.domain.SysOrderProgress">
+        select so.project_name,sop.create_date,sop.title,sop.comment,su.real_name
+        from sys_order_progress sop
+            left join sys_user su on sop.create_by=su.user_id COLLATE utf8mb4_unicode_ci
+            left join sys_order so on sop.order_id=so.Order_id COLLATE utf8mb4_unicode_ci
+        where sop.order_id=#{orderId}
+</select>
+
+    <update id="updateOrderIsNew" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
+        update sys_order
+        set
+            is_new=#{isNew}
+        where order_id=#{orderId}
+    </update>
 </mapper>
