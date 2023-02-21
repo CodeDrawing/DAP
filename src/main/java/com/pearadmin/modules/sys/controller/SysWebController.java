@@ -57,14 +57,14 @@ public class SysWebController extends BaseController {
         }
         SysType sysType = sysWebService.queryType(categoryId);
         model.addAttribute("categoryName", sysType.getTypeName());
-        model.addAttribute("date", sysType.getDate());
+        model.addAttribute("date", sysType.getCreateDate());
         model.addAttribute("paragraphOne", sysType.getParagraphOne());
         model.addAttribute("paragraphTwo", sysType.getParagraphTwo());
         model.addAttribute("abstractOne", sysType.getAbstractOne());
         model.addAttribute("abstractTwo", sysType.getAbstractTwo());
         model.addAttribute("imageOne", "/system/file/download/" + sysType.getImageOne());
         model.addAttribute("imageTwo", "/system/file/download/" + sysType.getImageTwo());
-
+        model.addAttribute("types",sysOrderService.queryIsShowTypes());
         return jumpPage("/web/info");
     }
 
@@ -75,7 +75,7 @@ public class SysWebController extends BaseController {
         SysType sysType = sysWebService.queryType(categoryId);
         model.addAttribute("categoryName", sysType.getTypeName());
         model.addAttribute("typeId", sysType.getTypeId());
-        model.addAttribute("date", sysType.getDate());
+        model.addAttribute("date", sysType.getCreateDate());
         model.addAttribute("paragraphOne", sysType.getParagraphOne());
         model.addAttribute("paragraphTwo", sysType.getParagraphTwo());
         model.addAttribute("abstractOne", sysType.getAbstractOne());
@@ -115,7 +115,7 @@ public class SysWebController extends BaseController {
     @ApiOperation(value = "下单")
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
     public ModelAndView getOrderPage(Model model) {
-        model.addAttribute("types", sysOrderService.queryAllTypes());
+        model.addAttribute("types", sysOrderService.queryAllTypes(new SysType()));
         model.addAttribute("userName", UserContext.currentUser().getRealName());
         model.addAttribute("phone", UserContext.currentUser().getPhone());
         return jumpPage(MODULE_PATH + "buy");
@@ -139,7 +139,7 @@ public class SysWebController extends BaseController {
         SysOrder sysOrder = sysOrderService.queryOrderByOrderId(orderId);
         model.addAttribute("order",sysOrder);
         model.addAttribute("users",sysUserService.queryAllNotUserUsers());
-        model.addAttribute("types",sysOrderService.queryAllTypes());
+        model.addAttribute("types",sysOrderService.queryAllTypes(new SysType()));
         return jumpPage(  "system/order/edit");
     }
 
@@ -209,6 +209,14 @@ public class SysWebController extends BaseController {
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
     public Result orderIsNew(@PathVariable("operate")String operate,@RequestBody SysOrder order) {
         return Result.decide(sysOrderService.updateOrderIsNew(order.getOrderId(),operate));
+    }
+    //    修改是否为完工项目
+    @PutMapping("orderIsFinish/{operate}")
+    @ApiOperation(value = "修改是否为完工项目")
+    @ResponseBody
+    @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
+    public Result orderIsFinish(@PathVariable("operate")String operate,@RequestBody SysOrder order) {
+        return Result.decide(sysOrderService.updateOrderIsFinish(order.getOrderId(),operate));
     }
 
 

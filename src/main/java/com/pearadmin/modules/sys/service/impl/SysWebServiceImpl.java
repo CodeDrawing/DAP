@@ -31,7 +31,7 @@ public class SysWebServiceImpl implements SysWebService {
 
     @Override
     public Boolean updateContent(SysType sysType) {
-        sysType.setDate(new Date());
+        sysType.setCreateDate(new Date());
         sysType.setImageOne(sysType.getImageOne());
         sysType.setImageTwo(sysType.getImageTwo());
         int result = sysWebMapper.updateContent(sysType);

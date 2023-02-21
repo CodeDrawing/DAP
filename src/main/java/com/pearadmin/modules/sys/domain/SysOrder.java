@@ -24,6 +24,7 @@ public class SysOrder {
     String phone;
     String address;
     String isNew;
+    String isFinish;
     String comment;
     String orderId;
     String typeId;

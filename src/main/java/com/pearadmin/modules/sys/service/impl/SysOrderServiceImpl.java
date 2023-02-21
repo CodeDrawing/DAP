@@ -11,6 +11,7 @@ import com.pearadmin.modules.sys.domain.SysRole;
 import com.pearadmin.modules.sys.domain.SysType;
 import com.pearadmin.modules.sys.mapper.SysOrderMapper;
 import com.pearadmin.modules.sys.service.SysOrderService;
+import com.pearadmin.modules.sys.service.SysTypeService;
 import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,8 +48,8 @@ public class SysOrderServiceImpl implements SysOrderService {
     }
 
     @Override
-    public List<SysType> queryAllTypes() {
-        List<SysType> sysTypes = sysOrderMapper.queryAllTypes();
+    public List<SysType> queryAllTypes(SysType sysType) {
+        List<SysType> sysTypes = sysOrderMapper.queryAllTypes(sysType);
         return sysTypes;
     }
 
@@ -120,5 +121,30 @@ public class SysOrderServiceImpl implements SysOrderService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public boolean updateOrderIsFinish(String orderId, String operate) {
+        SysOrder sysOrder = new SysOrder();
+        sysOrder.setOrderId(orderId);
+        sysOrder.setIsFinish(operate);
+        int result = sysOrderMapper.updateOrderIsFinish(sysOrder);
+        if(result==1){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @Override
+    public int countOrder() {
+        int result = sysOrderMapper.countOrder();
+        return result;
+    }
+
+    @Override
+    public List<SysType> queryIsShowTypes() {
+        List<SysType> sysTypes = sysOrderMapper.queryIsShowTypes();
+        return sysTypes;
     }
 }

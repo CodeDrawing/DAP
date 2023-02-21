@@ -21,5 +21,9 @@ public class SysType {
     String abstractTwo;
     String imageOne;
     String imageTwo;
-    Date date;
+    String isShow;
+    String createBy;
+    String realName;
+    Date createDate;
+    Date editDate;
 }

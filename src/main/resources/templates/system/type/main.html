@@ -1,71 +1,40 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:include="include :: header('订单列表')"/>
+    <th:block th:include="include :: header('类型列表')"/>
 </head>
 <body class="pear-container">
+
 <div class="layui-card">
     <div class="layui-card-body">
-        <form action="" class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label">项目名称</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" name="projectName" placeholder="" type="text">
-                </div>
-                <label class="layui-form-label">项目负责人</label>
-                <div class="layui-input-inline">
-                    <input class="layui-input" name="executeBy" placeholder="" type="text">
-                </div>
-                <button class="pear-btn pear-btn-md pear-btn-primary" lay-filter="order-query" lay-submit>
-                    <i class="layui-icon layui-icon-search"></i>
-                    查询
-                </button>
-                <button class="pear-btn pear-btn-md" type="reset">
-                    <i class="layui-icon layui-icon-refresh"></i>
-                    重置
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-<div class="layui-card">
-    <div class="layui-card-body">
-        <table id="order-table" lay-filter="order-table"></table>
+        <table id="type-table" lay-filter="type-table"></table>
     </div>
 </div>
 </body>
 
 <script id="order-toolbar" type="text/html">
-    <button sec:authorize="hasPermission('/system/web/order','sys:web:order')"
+    <button sec:authorize="hasPermission('/system/type/addType','sys:web:addType')"
             class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
         <i class="layui-icon layui-icon-add-1"></i>
-        新增
+        新增种类
     </button>
 </script>
 
 <script id="order-bar" type="text/html">
-    <button sec:authorize="hasPermission('/system/web/order','sys:web:order')"
+    <button sec:authorize="hasPermission('/system/type/editTyper','sys:web:editType')"
             class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
     </button>
-    <button sec:authorize="hasPermission('/system/web/order','sys:web:order')"
-            class="pear-btn pear-btn-warming pear-btn-sm" lay-event="progress"><i
-            class="layui-icon layui-icon-vercode"></i>
-    </button>
-    <button sec:authorize="hasPermission('/system/web/order','sys:web:order')"
+    <button sec:authorize="hasPermission('/system/type/removeType','sys:web:removeType')"
             class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>
 </script>
 
-<script id="isNew" type="text/html">
-    <input type="checkbox" name="isNew" value="{{d.orderId}}" lay-skin="switch" lay-text="已联系|未联系"
-           lay-filter="isNew" {{d.isNew== '1' ? 'checked' : '' }} >
-</script>
-<script id="isFinish" type="text/html">
-    <input type="checkbox" name="isFinish" value="{{d.orderId}}" lay-skin="switch" lay-text="已完工|未完工"
-           lay-filter="isFinish" {{d.isFinish== '1' ? 'checked' : '' }} >
+<script id="isShow" type="text/html">
+    <input type="checkbox" name="isShow" value="{{d.typeId}}" lay-skin="switch" lay-text="展示|隐藏"
+           lay-filter="isShow" {{d.isShow== '1' ? 'checked' : '' }} >
 </script>
 
-<script id="order-createDate" type="text/html">
+<script id="type-editDate" type="text/html">
     {{layui.util.toDateString(d.createDate,  "yyyy-MM-dd HH:mm:ss")}}
 </script>
 
@@ -77,26 +46,21 @@
         let $ = layui.jquery;
         let popup = layui.popup;
 
-        let MODULE_PATH = "/system/web/";
+        let MODULE_PATH = "/system/type/";
 
         let cols = [
             [
-                {title: '项目名', field: 'projectName', align: 'center', width: 180},
-                {title: '类型', field: 'typeName', align: 'center'},
-                {title: '主题', field: 'subject', align: 'center'},
-                {title: '是否已联系', field: 'isNew', align: 'center', templet: '#isNew'},
-                {title: '联系人', field: 'contactPerson', align: 'center'},
-                {title: '联系电话', field: 'phone', align: 'center'},
-                {title: '负责人', field: 'realName', align: 'center'},
-                {title: '创建时间', field: 'createDate', align: 'center',templet:'#order-createDate' },
-                {title: '完工情况', field: 'isFinish', align: 'center', templet: '#isFinish'},
+                {title: '类型名', field: 'typeName', align: 'center', width: 180},
+                {title: '是否首页展示', field: 'isShow', align: 'center', templet: '#isShow'},
+                {title: '创建人', field: 'realName', align: 'center'},
+                {title: '上次修改时间', field: 'editDate', align: 'center',templet:'#type-editDate' },
                 {title: '操作', toolbar: '#order-bar', align: 'center', width: 155}
             ]
         ]
 
         table.render({
-            elem: '#order-table',
-            url: MODULE_PATH + 'order/data',
+            elem: '#type-table',
+            url: MODULE_PATH + 'data',
             page: true,
             cols: cols,
             skin: 'line',
@@ -108,17 +72,15 @@
             }, 'filter', 'print', 'exports']
         });
 
-        table.on('tool(order-table)', function (obj) {
+        table.on('tool(type-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
                 window.edit(obj);
-            } else if (obj.event === 'progress') {
-                window.progress(obj);
-            }
+            } 
         });
 
-        table.on('toolbar(order-table)', function (obj) {
+        table.on('toolbar(type-table)', function (obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
@@ -127,11 +89,11 @@
         });
 
         form.on('submit(order-query)', function (data) {
-            table.reload('order-table', {where: data.field})
+            table.reload('type-table', {where: data.field})
             return false;
         });
 
-        form.on('switch(isNew)', function (obj) {
+        form.on('switch(isShow)', function (obj) {
             let operate;
             if (obj.elem.checked) {
                 operate = "1";
@@ -140,8 +102,8 @@
             }
             let loading = layer.load()
             $.ajax({
-                url: '/system/web/orderIsNew/' + operate,
-                data: JSON.stringify({orderId: this.value}),
+                url: '/system/type/typeIsShow/' + operate,
+                data: JSON.stringify({typeId: this.value}),
                 dataType: 'json',
                 contentType: 'application/json',
                 type: 'put',
@@ -164,8 +126,8 @@
             }
             let loading = layer.load()
             $.ajax({
-                url: '/system/web/orderIsFinish/' + operate,
-                data: JSON.stringify({orderId: this.value}),
+                url: '/system/type/orderIsFinish/' + operate,
+                data: JSON.stringify({typeId: this.value}),
                 dataType: 'json',
                 contentType: 'application/json',
                 type: 'put',
@@ -194,7 +156,7 @@
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['orderId'],
+                    url: MODULE_PATH + "remove/" + obj.data['typeId'],
                     dataType: 'json',
                     type: 'delete',
                     success: function (result) {
@@ -217,7 +179,7 @@
                 title: '项目进度',
                 shade: 0.1,
                 area: ['400px', '600px'],
-                content: MODULE_PATH + 'getOrderProgress/' + obj.data["orderId"]
+                content: MODULE_PATH + 'getOrderProgress/' + obj.data["typeId"]
             });
         }
 
@@ -229,7 +191,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '500px'],
-                content: MODULE_PATH + 'getEditOrdersPage/' + obj.data['orderId']
+                content: MODULE_PATH + 'getEditOrdersPage/' + obj.data['typeId']
             });
         }
 

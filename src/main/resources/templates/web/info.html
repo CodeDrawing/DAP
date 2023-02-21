@@ -100,54 +100,11 @@
                                     <span class="wsmenu-click"></span>
                                     <a th:href="@{/web/index}">首页</a>
                                 </li>
-                                <li>
+                                <li th:each="type:${types}">
                                     <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/13432167553}">墙绘</a>
+                                    <a th:href="@{'/system/web/info/'+${type.typeId}}">[[${type.typeName}]]</a>
                                 </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/jgh}">秸秆画</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/wp}">墙绘</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/jgh}">秸秆画</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/wp}">墙绘</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/wp}">联系我们</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{#}">Other
-                                        <span class="arrow"></span>
-                                    </a>
-                                    <ul class="wsmenu-submenu">
-                                        <li>
-                                            <a th:href="@{404.html}">404 page</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{category.html}">Category page</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{news.html}">News page</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{search-result.html}">Search result</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{full-width.html}">Full width</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                </li>
+
                             </ul>
                         </nav>
                         <!--Menu HTML Code-->

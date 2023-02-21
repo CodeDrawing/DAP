@@ -7,15 +7,16 @@
 
 </insert>
 
-    <select id="queryAllTypes" resultType="com.pearadmin.modules.sys.domain.SysType">
-        select * from types_content
-    </select>
+    <select id="queryAllTypes" parameterType="com.pearadmin.modules.sys.domain.SysType" resultType="com.pearadmin.modules.sys.domain.SysType">
+        select su.real_name,tc.create_date,tc.type_name,tc.is_show,tc.type_id from types_content tc
+         left join sys_user su on tc.create_by=su.user_id COLLATE utf8mb4_unicode_ci
+</select>
 
     <select id="queryOrderByUserId" parameterType="string" resultType="com.pearadmin.modules.sys.domain.SysOrder">
         select * from sys_order so,types_content tc where so.type_id=tc.type_id and create_by=#{userId} order by create_date desc
     </select>
     <select id="queryAllOrders" parameterType="com.pearadmin.modules.sys.domain.SysOrder" resultType="com.pearadmin.modules.sys.domain.SysOrder">
-        select  project_name,type_name,subject,is_new,contact_person,real_name,so.order_id,so.create_date from sys_order so
+        select  project_name,type_name,subject,is_new,contact_person,real_name,so.order_id,so.create_date,so.is_finish,so.phone from sys_order so
                           left join types_content tc on so.type_id = tc.type_id
 
                           left join sys_user su on so.execute_by = su.user_id COLLATE utf8mb4_unicode_ci
@@ -29,6 +30,7 @@
                 and execute_by like "%"#{executeBy}"%"
             </if>
         </where>
+order by so.create_date desc
     </select>
 
     <update id="editOrder" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
@@ -76,4 +78,18 @@
             is_new=#{isNew}
         where order_id=#{orderId}
     </update>
+    <update id="updateOrderIsFinish" parameterType="com.pearadmin.modules.sys.domain.SysOrder">
+        update sys_order
+        set
+            is_finish=#{isFinish}
+        where order_id=#{orderId}
+    </update>
+
+    <select id="countOrder" resultType="integer">
+        select count(order_id) from sys_order
+    </select>
+
+    <select id="queryIsShowTypes" resultType="com.pearadmin.modules.sys.domain.SysType">
+        select * from types_content where is_show='1';
+    </select>
 </mapper>

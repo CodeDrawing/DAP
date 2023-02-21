@@ -17,7 +17,7 @@
             ,abstract_two=#{abstractTwo}
             ,image_one=#{imageOne}
             ,image_two=#{imageTwo}
-            ,date=#{date}
+            ,edit_date=#{editDate}
         where type_id=#{typeId}
     </update>
     <select id="querySumVisitIndexData" resultType="integer">

@@ -78,53 +78,34 @@
                                     <span class="wsmenu-click"></span>
                                     <a th:href="@{/index}">首页</a>
                                 </li>
-                                <li>
+                                <li th:each="type:${types}">
                                     <span class="wsmenu-click"></span>
-                                    <a th:href="@{/system/web/info/13432167553}">墙绘</a>
+                                    <a th:href="@{'/system/web/info/'+${type.typeId}}">[[${type.typeName}]]</a>
                                 </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/system/web/info/16134523735}">秸秆画</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/wp}">墙绘</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/jgh}">秸秆画</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/wp}">墙绘</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{/web/info/wp}">联系我们</a>
-                                </li>
-                                <li>
-                                    <span class="wsmenu-click"></span>
-                                    <a th:href="@{#}">Other
-        							<span class="arrow"></span>
-                                </a>
-                                    <ul class="wsmenu-submenu">
-                                        <li>
-                                            <a th:href="@{404.html}">404 page</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{category.html}">Category page</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{news.html}">News page</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{search-result.html}">Search result</a>
-                                        </li>
-                                        <li>
-                                            <a th:href="@{full-width.html}">Full width</a>
-                                        </li>
-                                    </ul>
-                                </li>
+
+<!--                                <li>-->
+<!--                                    <span class="wsmenu-click"></span>-->
+<!--                                    <a th:href="@{#}">Other-->
+<!--        							<span class="arrow"></span>-->
+<!--                                </a>-->
+<!--                                    <ul class="wsmenu-submenu">-->
+<!--                                        <li>-->
+<!--                                            <a th:href="@{404.html}">404 page</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a th:href="@{category.html}">Category page</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a th:href="@{news.html}">News page</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a th:href="@{search-result.html}">Search result</a>-->
+<!--                                        </li>-->
+<!--                                        <li>-->
+<!--                                            <a th:href="@{full-width.html}">Full width</a>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
                                 </li>
                             </ul>
                         </nav>
@@ -153,7 +134,7 @@
                     <!-- END Tab panes -->
                     <!-- Nav tabs -->
                     <div class="col-sm-4 news-tabs">
-                        <p class="news-tabs__title h2">Last news</p>
+                        <p class="news-tabs__title h2">最近项目</p>
                         <ul class="news-tabs__nav nav nav-tabs shadow_text" role="tablist">
                             <li role="presentation" class="active">
                                 <a th:href="@{#}" role="tab" data-toggle="tab">

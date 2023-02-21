@@ -12,7 +12,7 @@ public interface SysOrderMapper {
     int insertOrder(SysOrder sysOrder);
 
 //    获取类型列表
-    List<SysType> queryAllTypes();
+    List<SysType> queryAllTypes(SysType param);
 
 //    根据用户获取列表
     List<SysOrder> queryOrderByUserId(String userId);
@@ -38,4 +38,10 @@ public interface SysOrderMapper {
 //    修改项目是否为新项目（已联系)
     int updateOrderIsNew(SysOrder sysOrder);
 
+    //    修改项目是否为已经完工
+    int updateOrderIsFinish(SysOrder sysOrder);
+//    项目总数
+    int countOrder();
+//    显示所有isShow为1的类型
+    List<SysType> queryIsShowTypes();
 }

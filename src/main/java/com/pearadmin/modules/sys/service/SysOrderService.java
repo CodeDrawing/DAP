@@ -12,7 +12,7 @@ import java.util.List;
 public interface SysOrderService {
 
     boolean insertOrder(SysOrder sysOrder);
-    List<SysType> queryAllTypes();
+    List<SysType> queryAllTypes(SysType sysType);
     //    根据用户获取列表
     List<SysOrder> queryOrderByUserId(String userId);
     PageInfo<SysOrder> queryAllOrders(SysOrder param, PageDomain pageDomain);
@@ -29,5 +29,12 @@ public interface SysOrderService {
     List<SysOrderProgress> queryOrderProressByUsreId(String orderId);
     //    修改项目是否为新项目（已联系)
     boolean updateOrderIsNew(String orderId, String operate);
+    //    修改项目是否为已经完工
+    boolean updateOrderIsFinish(String orderId, String operate);
+
+    int countOrder();
+    //    显示所有可展示的类型
+    List<SysType> queryIsShowTypes();
+    //    获取类型列表
 
 }

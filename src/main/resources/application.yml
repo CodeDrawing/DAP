@@ -80,6 +80,7 @@ pear:
       - /system/web/** #开放首页资源
       - /web/** #开放css等前段的静态资源
       - /system/file/download/** #打开图片资源
+      - /  #打开首页
   # 上 传 配 置
   upload:
     # windows 上传路径

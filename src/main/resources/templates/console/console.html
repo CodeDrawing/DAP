@@ -90,7 +90,7 @@
         </div>
         <div class="layui-col-xs6 layui-col-md3">
             <div class="layui-card top-panel">
-                <div class="layui-card-header">下单总数</div>
+                <div class="layui-card-header">订单总数</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs8 layui-col-md8 top-panel-number" id="value3" style="color: #28333E;">
@@ -124,7 +124,7 @@
         </div>
         <div class="layui-col-xs6 layui-col-md3">
             <div class="layui-card top-panel">
-                <div class="layui-card-header">项目总数</div>
+                <div class="layui-card-header">在建项目总数</div>
                 <div class="layui-card-body">
                     <div class="layui-row layui-col-space5">
                         <div class="layui-col-xs8 layui-col-md8 top-panel-number" id="value4" style="color: #28333E;">
@@ -189,9 +189,9 @@
 
 <input type="hidden" id="todayData" th:value="${todayVisitIndex}">
 <input type="hidden" id="sumVisitIndex" th:value="${sumVisitIndex}">
-<input type="hidden" id="last2DayData" th:value="${last2DayData}">
+<input type="hidden" id="theNumberOfOrder" th:value="${theNumberOfOrder}">
 <input type="hidden" id="last3DayData" th:value="${last3DayData}">
-<input type="hidden" id="last4DayData" th:value="${last4DayData}">
+<input type="hidden" id="last4DayData" th:value="${last4DayData}">Ï
 <input type="hidden" id="last5DayData" th:value="${last5DayData}">
 
 <!--数据图 右边 年龄分布-->
@@ -218,7 +218,9 @@
         //图表数据 6天之内的数据
         var todayData=document.getElementById("todayData").value;
         var sumVisitIndex=document.getElementById("sumVisitIndex").value;
-        var last2DayData=document.getElementById("last2DayData").value;
+        var theNumberOfOrder=document.getElementById("theNumberOfOrder").value;
+
+
         var last3DayData=document.getElementById("last3DayData").value;
         var last4DayData=document.getElementById("last4DayData").value;
         var last5DayData=document.getElementById("last5DayData").value;
@@ -251,7 +253,7 @@
 
         count.up("value3", {
             time: 4000,
-            num: day30VisitData,
+            num: theNumberOfOrder,
             bit: 0,
             regulator: 50
         })

@@ -6,6 +6,7 @@ import com.pearadmin.common.context.UserContext;
 import com.pearadmin.common.web.base.BaseController;
 import com.pearadmin.common.secure.session.SecureSessionService;
 import com.pearadmin.modules.sys.domain.SysVisitData;
+import com.pearadmin.modules.sys.service.SysOrderService;
 import com.pearadmin.modules.sys.service.SysWebService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class SysEntranceController extends BaseController {
 
     @Autowired
     SysWebService sysWebService;
+    @Autowired
+    SysOrderService sysOrderService;
 
     /**
      * Describe: 获取登录视图
@@ -66,24 +69,15 @@ public class SysEntranceController extends BaseController {
      * Param: ModelAndView
      * Return: 登录视图
      */
-    @GetMapping("index")
+    @GetMapping(path={"index","/"})
     @Log(title = "首页", describe = "返回 index 首页视图", type = BusinessType.ADD)
-    public ModelAndView index() {
+    public ModelAndView index(Model model) {
         sysWebService.visitIndex();
+        model.addAttribute("types",sysOrderService.queryIsShowTypes());
         return jumpPage("index");
     }
 
-    /**
-     * Describe: 获取网址首页
-     * Param: ModelAndView
-     * Return: 登录视图
-     */
-    @GetMapping("/")
-    @Log(title = "首页", describe = "返回 index 首页视图", type = BusinessType.ADD)
-    public ModelAndView indexOtherWay() {
-        sysWebService.visitIndex();
-        return jumpPage("index");
-    }
+
 
     /**
      * Describe: 获取主页视图
@@ -97,6 +91,8 @@ public class SysEntranceController extends BaseController {
         model.addAttribute("todayVisitIndex",sysVisitData.getTypeIndex());
 //         网站总访问量
         model.addAttribute("sumVisitIndex",sysWebService.querySumVisitIndexData());
+//       订单总数
+        model.addAttribute("theNumberOfOrder",sysOrderService.countOrder());
         return jumpPage("console/console");
     }
 
