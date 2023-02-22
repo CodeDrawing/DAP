@@ -117,30 +117,6 @@
                 }
             })
         });
-        form.on('switch(isFinish)', function (obj) {
-            let operate;
-            if (obj.elem.checked) {
-                operate = "1";
-            } else {
-                operate = "0";
-            }
-            let loading = layer.load()
-            $.ajax({
-                url: '/system/type/orderIsFinish/' + operate,
-                data: JSON.stringify({typeId: this.value}),
-                dataType: 'json',
-                contentType: 'application/json',
-                type: 'put',
-                success: function (result) {
-                    layer.close(loading);
-                    if (result.success) {
-                        layer.msg(result.msg, {icon: 1, time: 1000});
-                    } else {
-                        layer.msg(result.msg, {icon: 2, time: 1000});
-                    }
-                }
-            })
-        });
 
         window.add = function () {
             layer.open({
@@ -148,7 +124,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '500px'],
-                content: MODULE_PATH + 'getOrder'
+                content: MODULE_PATH + 'addOrderPage'
             });
         }
         window.remove = function (obj) {
@@ -173,15 +149,6 @@
             });
         }
 
-        window.progress = function (obj) {
-            layer.open({
-                type: 2,
-                title: '项目进度',
-                shade: 0.1,
-                area: ['400px', '600px'],
-                content: MODULE_PATH + 'getOrderProgress/' + obj.data["typeId"]
-            });
-        }
 
 
 
@@ -190,8 +157,8 @@
                 type: 2,
                 title: '修改',
                 shade: 0.1,
-                area: ['500px', '500px'],
-                content: MODULE_PATH + 'getEditOrdersPage/' + obj.data['typeId']
+                area: ['600px', '500px'],
+                content:'/system/web/getEditTypePage/' + obj.data['typeId']
             });
         }
 

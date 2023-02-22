@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
 import java.security.Security;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -68,29 +69,21 @@ public class SysWebController extends BaseController {
         return jumpPage("/web/info");
     }
 
-    @GetMapping("main/{categoryId}")
+    @GetMapping("getEditTypePage/{categoryId}")
     public ModelAndView main(Model model, @PathVariable("categoryId") String categoryId) {
         List<SysFile> files = sysFileService.data();
         model.addAttribute("files", files);
         SysType sysType = sysWebService.queryType(categoryId);
-        model.addAttribute("categoryName", sysType.getTypeName());
-        model.addAttribute("typeId", sysType.getTypeId());
-        model.addAttribute("date", sysType.getCreateDate());
-        model.addAttribute("paragraphOne", sysType.getParagraphOne());
-        model.addAttribute("paragraphTwo", sysType.getParagraphTwo());
-        model.addAttribute("abstractOne", sysType.getAbstractOne());
-        model.addAttribute("abstractTwo", sysType.getAbstractTwo());
+        model.addAttribute("type",sysType);
 
-
-        model.addAttribute("imageOne", sysType.getImageOne());
-        model.addAttribute("imageTwo", sysType.getImageTwo());
-        return jumpPage(MODULE_PATH + "main");
+        return jumpPage("/system/type/edit");
     }
 
     @ResponseBody
     @RequestMapping(value = "main/update/", method = RequestMethod.PUT)
     @PreAuthorize("hasPermission('/system/web/main/update/','system:web:main:update')")
     public Result mainUpdate(@RequestBody SysType sysType) {
+        sysType.setEditDate(new Date());
         return Result.decide(sysWebService.updateContent(sysType));
     }
 
