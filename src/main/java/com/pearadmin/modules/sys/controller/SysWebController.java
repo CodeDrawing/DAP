@@ -190,9 +190,7 @@ public class SysWebController extends BaseController {
     @ResponseBody
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
     public Result addProgress(@RequestBody SysOrderProgress sysOrderProgress) {
-        System.err.println(sysOrderProgress);
-        System.err.println(sysOrderProgress.getOrderId());
-        System.err.println(sysOrderProgress.getTitle());
+
         return Result.decide(sysOrderService.addOrderProgress(sysOrderProgress));
     }
     //    修改是否已联系
@@ -220,7 +218,6 @@ public class SysWebController extends BaseController {
     public Result editOrder(@PathVariable("orderId")String orderId) {
         return decide(sysOrderService.deleteOrder(orderId));
     }
-
 
     /**
      * 页面跳转

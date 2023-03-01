@@ -44,4 +44,8 @@ public interface SysOrderMapper {
     int countOrder();
 //    显示所有isShow为1的类型
     List<SysType> queryIsShowTypes();
+
+    int addType(SysType sysType);
+
+    int updateIsShow(SysType sysType);
 }

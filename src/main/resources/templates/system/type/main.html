@@ -124,9 +124,10 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '500px'],
-                content: MODULE_PATH + 'addOrderPage'
+                content: MODULE_PATH + 'getAddPage'
             });
         }
+
         window.remove = function (obj) {
             layer.confirm('确定要删除该项目吗', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
@@ -148,9 +149,6 @@
                 })
             });
         }
-
-
-
 
         window.edit = function (obj) {
             layer.open({

@@ -61,12 +61,12 @@ spring:
         master:
           url: jdbc:mysql://127.0.0.1:3306/dreamArtPainting?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
           username: root
-          password: '08290829'
+          password: '0829'
         # 从库
         second:
           url: jdbc:mysql://127.0.0.1:3306/dreamArtPainting?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true
           username: root
-          password: '08290829'
+          password: '0829'
   # Quartz 配置
   quartz:
     properties:

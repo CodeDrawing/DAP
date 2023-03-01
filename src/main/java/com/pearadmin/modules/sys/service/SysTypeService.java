@@ -9,4 +9,9 @@ import java.util.List;
 public interface SysTypeService {
     //    获取类型列表
     PageInfo<SysType> queryAllTypes(SysType param, PageDomain pageDomain);
+
+
+    boolean addType(SysType sysType);
+
+    boolean updateIsShow(SysType sysType);
 }

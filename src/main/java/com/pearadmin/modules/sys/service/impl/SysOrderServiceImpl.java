@@ -147,4 +147,6 @@ public class SysOrderServiceImpl implements SysOrderService {
         List<SysType> sysTypes = sysOrderMapper.queryIsShowTypes();
         return sysTypes;
     }
+
+
 }

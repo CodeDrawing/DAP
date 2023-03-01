@@ -92,4 +92,15 @@ order by so.create_date desc
     <select id="queryIsShowTypes" resultType="com.pearadmin.modules.sys.domain.SysType">
         select * from types_content where is_show='1';
     </select>
+
+    <insert id="addType" parameterType="com.pearadmin.modules.sys.domain.SysType">
+        insert into types_content(type_id,type_name,paragraph_one,abstract_one,paragraph_two,abstract_two,image_one,image_two,create_by,create_date)
+        values (#{typeId},#{typeName},#{paragraphOne},#{abstractOne},#{paragraphTwo},#{abstractTwo},#{imageOne},#{imageTwo},#{createBy},#{createDate})
+    </insert>
+
+    <update id="updateIsShow" parameterType="com.pearadmin.modules.sys.domain.SysType">
+        update types_content
+        set is_show=#{isShow}
+        where type_id=#{typeId}
+    </update>
 </mapper>

@@ -13,7 +13,8 @@
 
  Date: 25/02/2023 10:47:05
 */
-
+create database dreamArtPainting;
+use dreamArtPainting;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
