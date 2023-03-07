@@ -13,7 +13,7 @@
 </select>
 
     <select id="queryOrderByUserId" parameterType="string" resultType="com.pearadmin.modules.sys.domain.SysOrder">
-        select * from sys_order so,types_content tc where so.type_id=tc.type_id and create_by=#{userId} order by create_date desc
+        select * from sys_order so,types_content tc where so.type_id=tc.type_id and so.create_by=#{userId} order by so.create_date desc
     </select>
     <select id="queryAllOrders" parameterType="com.pearadmin.modules.sys.domain.SysOrder" resultType="com.pearadmin.modules.sys.domain.SysOrder">
         select  project_name,type_name,subject,is_new,contact_person,real_name,so.order_id,so.create_date,so.is_finish,so.phone from sys_order so
