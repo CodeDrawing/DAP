@@ -37,9 +37,7 @@ import java.util.Map;
 @Api(tags = {"Web入口"})
 @RequestMapping(ControllerConstant.API_SYSTEM_PREFIX + "/web/")
 public class SysWebController extends BaseController {
-
     private static String MODULE_PATH = "system/web/";
-
     @Autowired
     SysWebService sysWebService;
     @Autowired
@@ -68,7 +66,6 @@ public class SysWebController extends BaseController {
         model.addAttribute("types",sysOrderService.queryIsShowTypes());
         return jumpPage("/web/info");
     }
-
     @GetMapping("getEditTypePage/{categoryId}")
     public ModelAndView main(Model model, @PathVariable("categoryId") String categoryId) {
         List<SysFile> files = sysFileService.data();
