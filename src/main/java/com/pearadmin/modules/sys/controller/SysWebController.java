@@ -46,7 +46,6 @@ public class SysWebController extends BaseController {
     SysFileServiceImpl sysFileService;
     @Autowired
     SysOrderService sysOrderService;
-
     @GetMapping("info/{categoryId}")
     public ModelAndView info(Model model, @PathVariable("categoryId") String categoryId) {
         if (categoryId.equals("13432167553")) {
@@ -75,7 +74,6 @@ public class SysWebController extends BaseController {
 
         return jumpPage("/system/type/edit");
     }
-
     @ResponseBody
     @RequestMapping(value = "main/update/", method = RequestMethod.PUT)
     @PreAuthorize("hasPermission('/system/web/main/update/','system:web:main:update')")
@@ -90,7 +88,6 @@ public class SysWebController extends BaseController {
     public SysVisitData console() {
         return sysWebService.queryCurrentVisitDate();
     }
-
     @GetMapping("center")
     @ApiOperation(value = "修改个人信息视图")
     @PreAuthorize("hasPermission('/system/web/center','sys:web:center')")
@@ -100,7 +97,6 @@ public class SysWebController extends BaseController {
         model.addAttribute("sysUser", userId);
         return jumpPage(MODULE_PATH + "center");
     }
-
     @GetMapping("getOrder")
     @ApiOperation(value = "下单")
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
@@ -110,8 +106,6 @@ public class SysWebController extends BaseController {
         model.addAttribute("phone", UserContext.currentUser().getPhone());
         return jumpPage(MODULE_PATH + "buy");
     }
-
-
     @PutMapping("order")
     @ApiOperation(value = "下单")
     @ResponseBody
@@ -120,8 +114,6 @@ public class SysWebController extends BaseController {
 
         return Result.decide(sysOrderService.insertOrder(sysOrder));
     }
-
-
     @GetMapping("getEditOrdersPage/{orderId}")
     @ApiOperation(value = "我的订单")
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
@@ -151,7 +143,7 @@ public class SysWebController extends BaseController {
         return jumpPage(MODULE_PATH + "myOrders");
     }
 
-//    跳转到订单数据列表
+    //    跳转到订单数据列表
     @GetMapping("getOrderList")
     @ApiOperation(value = "跳转订单列表")
     @PreAuthorize("hasPermission('/system/web/order','sys:web:order')")
@@ -160,7 +152,7 @@ public class SysWebController extends BaseController {
     }
 
 
-//    所有订单数据
+    //    所有订单数据
 
     @RequestMapping("order/data")
     @ApiOperation(value = "获取订单数据")
