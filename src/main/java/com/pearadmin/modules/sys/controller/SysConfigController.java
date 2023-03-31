@@ -34,13 +34,11 @@ public class SysConfigController extends BaseController {
      * 基础路径
      */
     private final String MODULE_PATH = "system/config/";
-
     /**
      * 引入服务
      */
     @Resource
     private SysConfigService sysConfigService;
-
     /**
      * Describe: 数据字典列表视图
      * Param: ModelAndView
@@ -51,7 +49,6 @@ public class SysConfigController extends BaseController {
     public ModelAndView main() {
         return jumpPage(MODULE_PATH + "main");
     }
-
     /**
      * Describe: 数据字典列表数据
      * Param: sysConfig
@@ -74,7 +71,6 @@ public class SysConfigController extends BaseController {
     public ModelAndView add() {
         return jumpPage(MODULE_PATH + "add");
     }
-
     /**
      * Describe: 新增字典类型接口
      * Param: sysConfig
